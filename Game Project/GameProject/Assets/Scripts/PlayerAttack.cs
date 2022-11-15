@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using StarterAssets;
 public class PlayerAttack : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -12,7 +13,7 @@ public class PlayerAttack : MonoBehaviour
     {
         currentHealth = maxHealth;
         healthBar.setMaxHealth(maxHealth);
-
+        
     }
 
     // Update is called once per frame
@@ -21,6 +22,7 @@ public class PlayerAttack : MonoBehaviour
         if (currentHealth <=0)
         {
             transform.GetComponent<Animator>().SetTrigger("Die");
+            GetComponent<ThirdPersonController>().enabled = false;
 
         }
         if (Input.GetMouseButtonDown(0))
