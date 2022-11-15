@@ -22,21 +22,9 @@ public class PlayerAttack : MonoBehaviour
     {
         if (currentHealth <=0)
         {
-            transform.GetComponent<Animator>().SetBool("Die",true);
+            transform.GetComponent<Animator>().SetTrigger("Die");
             GetComponent<ThirdPersonController>().enabled = false;
-            gameObject.SetActive(true);
-            GameOverScreen.Setup();
-            if (Input.GetKey(KeyCode.R))
-            {
-                GameOverScreen.Setup2();
-                transform.GetComponent<Animator>().SetBool("Die", false);
-                GetComponent<ThirdPersonController>().enabled = true;
-                transform.GetComponent<Animator>().SetTrigger("Revive");
-                currentHealth = maxHealth;
-                healthBar.setHealth(currentHealth);
-                
-                
-            }
+
         }
         if (Input.GetMouseButtonDown(0))
         {
