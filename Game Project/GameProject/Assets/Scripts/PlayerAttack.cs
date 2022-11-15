@@ -9,6 +9,7 @@ public class PlayerAttack : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth;
     public HealthBar healthBar;
+    public GameOverScreen GameOverScreen;
     void Start()
     {
         currentHealth = maxHealth;
@@ -23,13 +24,18 @@ public class PlayerAttack : MonoBehaviour
         {
             transform.GetComponent<Animator>().SetBool("Die",true);
             GetComponent<ThirdPersonController>().enabled = false;
+            gameObject.SetActive(true);
+            GameOverScreen.Setup();
             if (Input.GetKey(KeyCode.R))
             {
+                GameOverScreen.Setup2();
                 transform.GetComponent<Animator>().SetBool("Die", false);
                 GetComponent<ThirdPersonController>().enabled = true;
                 transform.GetComponent<Animator>().SetTrigger("Revive");
                 currentHealth = maxHealth;
                 healthBar.setHealth(currentHealth);
+                
+                
             }
         }
         if (Input.GetMouseButtonDown(0))
