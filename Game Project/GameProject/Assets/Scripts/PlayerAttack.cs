@@ -23,7 +23,17 @@ public class PlayerAttack : MonoBehaviour
         if (currentHealth <=0)
         {
             transform.GetComponent<Animator>().SetTrigger("Die");
+            transform.GetComponent<Animator>().SetBool("Die",true);
             GetComponent<ThirdPersonController>().enabled = false;
+
+            if (Input.GetKey(KeyCode.R))
+            {
+                transform.GetComponent<Animator>().SetBool("Die", false);
+                GetComponent<ThirdPersonController>().enabled = true;
+                transform.GetComponent<Animator>().SetTrigger("Revive");
+                currentHealth = maxHealth;
+                healthBar.setHealth(currentHealth);
+            }
 
         }
         if (Input.GetMouseButtonDown(0))
