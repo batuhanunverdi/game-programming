@@ -20837,7 +20837,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.1660377, y: 1}
+    m_SensorSize: {x: 1.1560694, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -22643,7 +22643,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   healthBar: {fileID: 519767244}
-  GameOverScreen: {fileID: 0}
+  GameOverScreen: {fileID: 1987156549}
 --- !u!4 &6983258930626336602
 Transform:
   m_ObjectHideFlags: 0

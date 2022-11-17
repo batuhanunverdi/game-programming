@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameOverScreen : MonoBehaviour
 {
+    void Start(){
+        
+    }
     public void Setup(){
         gameObject.SetActive(true);
     }
@@ -11,4 +14,5 @@ public class GameOverScreen : MonoBehaviour
         gameObject.SetActive(false);
     }
     
+
 }

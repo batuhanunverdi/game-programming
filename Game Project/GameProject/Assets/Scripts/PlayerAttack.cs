@@ -10,6 +10,8 @@ public class PlayerAttack : MonoBehaviour
     public int currentHealth;
     public HealthBar healthBar;
     public GameOverScreen GameOverScreen;
+    public CallAfterDelay CallAfterDelay;
+    public bool timer = false;
     void Start()
     {
         currentHealth = maxHealth;
@@ -25,9 +27,17 @@ public class PlayerAttack : MonoBehaviour
             transform.GetComponent<Animator>().SetTrigger("Die");
             transform.GetComponent<Animator>().SetBool("Die",true);
             GetComponent<ThirdPersonController>().enabled = false;
+            
+            CallAfterDelay.Create(2.0f,TimerTrue);
+            if(timer){
+                GameOverScreen.Setup();
+            }
+           
 
             if (Input.GetKey(KeyCode.R))
             {
+                timer = false;
+                GameOverScreen.Setup2();
                 transform.GetComponent<Animator>().SetBool("Die", false);
                 GetComponent<ThirdPersonController>().enabled = true;
                 transform.GetComponent<Animator>().SetTrigger("Revive");
@@ -38,11 +48,18 @@ public class PlayerAttack : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0))
         {
-            transform.GetComponent<Animator>().SetTrigger("Attack");
+            if(currentHealth > 0){
+transform.GetComponent<Animator>().SetTrigger("Attack");
             TakeDamage(10);
+            }
+            
         }
     }
-
+    
+    public void TimerTrue(){
+            timer = true;
+    }
+    
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
