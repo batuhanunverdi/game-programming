@@ -73,7 +73,7 @@ public class PlayerAttack : MonoBehaviour
                 w.fillAmount = 1f;
                 special = true;
                 specialCooldown = 10f;
-                 time_remaining = 10f;
+                time_remaining = 10f;
                 
             }
 
@@ -82,7 +82,7 @@ public class PlayerAttack : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
         {
      
-            OnClick();
+            transform.GetComponent<Animator>().SetTrigger("Attack");
             TakeDamage(10);
         }
          if(Input.GetKey(KeyCode.Q) && special){
@@ -99,9 +99,7 @@ public class PlayerAttack : MonoBehaviour
         
         
     }
-    public void OnClick(){
-      transform.GetComponent<Animator>().SetTrigger("Attack");
-    }
+    
     
     public void TimerTrue(){
             timer = true;
