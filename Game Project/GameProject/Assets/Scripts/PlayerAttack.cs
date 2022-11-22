@@ -6,19 +6,31 @@ using StarterAssets;
 public class PlayerAttack : MonoBehaviour
 {
     // Start is called before the first frame update
+    
     public int maxHealth = 100;
     public int currentHealth;
     public HealthBar healthBar;
     public GameOverScreen GameOverScreen;
+    
     public CallAfterDelay CallAfterDelay;
     public bool timer = false;
+    public bool special = true;
+    public float specialCooldown = 10f;
+    public Image w;
+    public float time_remaining;
+    public float maxTime = 10f;
+    
+    int a = 0;
     void Start()
     {
         currentHealth = maxHealth;
         healthBar.setMaxHealth(maxHealth);
+        time_remaining = maxTime;
+        
+        
         
     }
-
+   
     // Update is called once per frame
     void Update()
     {
@@ -28,14 +40,17 @@ public class PlayerAttack : MonoBehaviour
             transform.GetComponent<Animator>().SetBool("Die",true);
             GetComponent<ThirdPersonController>().enabled = false;
             
-            CallAfterDelay.Create(2.0f,TimerTrue);
-            if(timer){
-                GameOverScreen.Setup();
+            
+            if(a==0){
+                
+                CallAfterDelay.Create(2.0f,GameOverScreen.Setup);
+                a++;
             }
            
 
             if (Input.GetKey(KeyCode.R))
             {
+                a = 0;
                 timer = false;
                 GameOverScreen.Setup2();
                 transform.GetComponent<Animator>().SetBool("Die", false);
@@ -46,14 +61,46 @@ public class PlayerAttack : MonoBehaviour
             }
 
         }
-        if (Input.GetMouseButtonDown(0))
-        {
-            if(currentHealth > 0){
-transform.GetComponent<Animator>().SetTrigger("Attack");
-            TakeDamage(10);
+        if(!special){
+
+            if(specialCooldown > 0){
+                specialCooldown -= Time.deltaTime;
+                time_remaining -= Time.deltaTime;
+                w.fillAmount = time_remaining/maxTime;
             }
-            
+            else
+            {
+                w.fillAmount = 1f;
+                special = true;
+                specialCooldown = 10f;
+                 time_remaining = 10f;
+                
+            }
+
         }
+        if(currentHealth > 0){
+            if (Input.GetMouseButtonDown(0))
+        {
+     
+            OnClick();
+            TakeDamage(10);
+        }
+         if(Input.GetKey(KeyCode.Q) && special){
+                    transform.GetComponent<Animator>().SetTrigger("Special");
+                    special = false;
+                    
+                    
+                    
+                }
+        }
+     
+        
+        
+        
+        
+    }
+    public void OnClick(){
+      transform.GetComponent<Animator>().SetTrigger("Attack");
     }
     
     public void TimerTrue(){
@@ -66,4 +113,5 @@ transform.GetComponent<Animator>().SetTrigger("Attack");
         healthBar.setHealth(currentHealth);
 
     }
+   
 }
