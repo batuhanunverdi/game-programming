@@ -22,7 +22,7 @@ public class PlayerAttack : MonoBehaviour
     public bool special = true;
 
     public float specialCooldown = 10f;
-
+// Skill UI
     public Image w;
 
     public float time_remaining;
@@ -30,7 +30,21 @@ public class PlayerAttack : MonoBehaviour
     public float maxTime = 10f;
 
     public bool dead_check = false;
+//Enemy attack başlangıç 
+    public Transform attackPoint;
 
+    public float attackRange = 0.5f;
+
+    public LayerMask enemy;
+
+    public int attackDamage = 50;
+
+//Swordu saniyede sallama limitimiz ayarlancak sayılar
+    public float attackRate = 100f;
+
+    float nextAttackTime = 0f;
+
+//CallAfterDelaychecki
     int a = 0;
 
     void Start()
@@ -85,15 +99,19 @@ public class PlayerAttack : MonoBehaviour
                 time_remaining = 10f;
             }
         }
-
-        if (Input.GetMouseButtonDown(0))
+        if (Time.time >= nextAttackTime)
         {
-            if (currentHealth > 0)
+            if (Input.GetMouseButtonDown(0))
             {
-                transform.GetComponent<Animator>().SetTrigger("Attack");
-                TakeDamage(10);
+                if (currentHealth > 0)
+                {
+                    Attack();
+                    TakeDamage(10);
+                    nextAttackTime = Time.time + 1f / attackRate;
+                }
             }
         }
+
         if (Input.GetKey(KeyCode.Q) && special)
         {
             if (currentHealth > 0)
@@ -103,6 +121,25 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
+
+    public void Attack()
+    {
+        transform.GetComponent<Animator>().SetTrigger("Attack");
+        Collider[] enemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemy);
+        foreach (Collider enemy in enemies)
+        {
+            enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
+        }
+    }
+
+    // Attackın vurcağı rangei görmemizi sağlıyor
+    void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null) return;
+
+        Gizmos.DrawSphere(attackPoint.position, attackRange);
+    }
+
     // ölme ekranında önce revive fix için
     public void death()
     {
