@@ -33,6 +33,7 @@ public class PlayerAttack : MonoBehaviour
 //Enemy attack başlangıç 
     public Transform attackPoint;
 
+
     public float attackRange = 0.5f;
 
     public LayerMask enemy;
