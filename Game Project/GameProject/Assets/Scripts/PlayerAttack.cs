@@ -103,7 +103,7 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
-
+    // ölme ekranında önce revive fix için
     public void death()
     {
         dead_check = true;
