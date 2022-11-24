@@ -1,0 +1,9 @@
+.zip filter=lfs diff=lfs merge=lfs -text
+.png filter=lfs diff=lfs merge=lfs -text
+.fbx filter=lfs diff=lfs merge=lfs -text
+*.zip filter=lfs diff=lfs merge=lfs -text
+*.png filter=lfs diff=lfs merge=lfs -text
+*.fbx filter=lfs diff=lfs merge=lfs -text
+Project/GameProject/Assets/ModularRPGHeroesPBR/SRP/URP_PBR.zip filter=lfs diff=lfs merge=lfs -text
+/GameProject/Assets/ModularRPGHeroesPBR/SRP/URP_PBR.zip filter=lfs diff=lfs merge=lfs -text
+GameProject/Assets/ModularRPGHeroesPBR filter=lfs diff=lfs merge=lfs -text
