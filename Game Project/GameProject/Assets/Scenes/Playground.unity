@@ -6761,6 +6761,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4527854155812206, guid: 45f36e2270151a542be4982f9f1dd581, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.38
+      objectReference: {fileID: 0}
     - target: {fileID: 95246818704427922, guid: 45f36e2270151a542be4982f9f1dd581,
         type: 3}
       propertyPath: m_Controller
@@ -14378,6 +14382,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 644029068}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &645394889
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 645394890}
+  m_Layer: 8
+  m_Name: GolemAttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &645394890
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645394889}
+  m_LocalRotation: {x: 0.000000029677704, y: -0.7071069, z: -0.70710677, w: -0.00000003921018}
+  m_LocalPosition: {x: 0.123, y: -1.281, z: 0.728}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1981733831}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &646041956 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1498041528017854, guid: 0ba258545da721e488ecb71ffd143b6f,
@@ -14898,7 +14933,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &670606201
+--- !u!114 &670606204
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -14907,11 +14942,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 670606194}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 342ccff39fd7b3346b91ae0fad4ac1a7, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a99e508ee0da32408a6e9d1083accdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  GolemAttackPoint: {fileID: 0}
+  golemAttackRange: 1
+  golemAttackDamage: 10
+  Character:
+    serializedVersion: 2
+    m_Bits: 0
+  maxGolemHealth: 200
   CallAfterDelay: {fileID: 0}
+  layerholder: 0
 --- !u!1001 &670973845
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31006,13 +31048,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1335958260}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.58, y: 0.698, z: 0.757}
+  m_LocalRotation: {x: -0.70710677, y: -0.000000007902534, z: -0.000000018439247,
+    w: 0.7071069}
+  m_LocalPosition: {x: -0.0119515285, y: 0.9070002, z: -0.07177943}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3893294199639930361}
-  m_RootOrder: 4
+  m_Father: {fileID: 1917906452}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1336454273 stripped
 Transform:
@@ -33834,6 +33877,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   CallAfterDelay: {fileID: 0}
+  layerholder: 0
 --- !u!1 &1474100289
 GameObject:
   m_ObjectHideFlags: 0
@@ -44946,6 +44990,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe224bf466c1e5f40883ad83a17a6f7b, type: 3}
+--- !u!4 &1917906452 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4597521189709829527, guid: c564c8c0d0cdc45429417f315e9f3e41,
+    type: 3}
+  m_PrefabInstance: {fileID: 497994161}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1920564451 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4860489496569928, guid: fe224bf466c1e5f40883ad83a17a6f7b,
@@ -46367,6 +46417,12 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 5a5a8e9d7228e204a91c0fb79c12479b, type: 3}
+--- !u!4 &1981733831 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4527854155812206, guid: 45f36e2270151a542be4982f9f1dd581,
+    type: 3}
+  m_PrefabInstance: {fileID: 287502218}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1981995079
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50872,7 +50928,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 0.95183045, y: 1}
+    m_SensorSize: {x: 1.2138728, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -51598,7 +51654,6 @@ Transform:
   - {fileID: 8002264680806281515}
   - {fileID: 272993188152429408}
   - {fileID: 550759158}
-  - {fileID: 1335958261}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -52694,6 +52749,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   attackDamage: 50
+  SpecialAttackRange: 2
+  specialDamage: 100
   attackRate: 2
 --- !u!4 &6983258930626336602
 Transform:

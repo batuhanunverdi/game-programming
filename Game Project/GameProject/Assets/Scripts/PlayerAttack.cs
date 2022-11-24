@@ -22,7 +22,8 @@ public class PlayerAttack : MonoBehaviour
     public bool special = true;
 
     public float specialCooldown = 10f;
-// Skill UI
+
+    // Skill UI
     public Image w;
 
     public float time_remaining;
@@ -30,9 +31,10 @@ public class PlayerAttack : MonoBehaviour
     public float maxTime = 10f;
 
     public bool dead_check = false;
-//Enemy attack başlangıç 
-    public Transform attackPoint;
 
+    //Enemy attack başlangıç
+
+    public Transform attackPoint;
 
     public float attackRange = 0.5f;
 
@@ -40,12 +42,16 @@ public class PlayerAttack : MonoBehaviour
 
     public int attackDamage = 50;
 
-//Swordu saniyede sallama limitimiz ayarlancak sayılar
+    public float SpecialAttackRange = 2f;
+
+    public int specialDamage = 100;
+
+    //Swordu saniyede sallama limitimiz ayarlancak sayılar
     public float attackRate = 100f;
 
     float nextAttackTime = 0f;
 
-//CallAfterDelaychecki
+    //CallAfterDelaychecki
     int a = 0;
 
     void Start()
@@ -55,6 +61,13 @@ public class PlayerAttack : MonoBehaviour
         time_remaining = maxTime;
     }
 
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        healthBar.setHealth (currentHealth);
+        transform.GetComponent<Animator>().SetTrigger("GetHit");
+        
+    }
     // Update is called once per frame
     void Update()
     {
@@ -107,7 +120,6 @@ public class PlayerAttack : MonoBehaviour
                 if (currentHealth > 0)
                 {
                     Attack();
-                    TakeDamage(10);
                     nextAttackTime = Time.time + 1f / attackRate;
                 }
             }
@@ -117,7 +129,7 @@ public class PlayerAttack : MonoBehaviour
         {
             if (currentHealth > 0)
             {
-                transform.GetComponent<Animator>().SetTrigger("Special");
+                SpecialAttack();
                 special = false;
             }
         }
@@ -126,10 +138,40 @@ public class PlayerAttack : MonoBehaviour
     public void Attack()
     {
         transform.GetComponent<Animator>().SetTrigger("Attack");
-        Collider[] enemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemy);
+        Collider[] enemies =
+            Physics.OverlapSphere(attackPoint.position, attackRange, enemy);
         foreach (Collider enemy in enemies)
         {
-            enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
+            if (enemy.GetComponent<EnemyGolem>())
+            {
+                enemy.GetComponent<EnemyGolem>().TakeDamage(attackDamage);
+            }
+            if (enemy.GetComponent<Enemy>())
+            {
+                enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
+            }
+
+            
+        }
+    }
+
+    public void SpecialAttack()
+    {
+        transform.GetComponent<Animator>().SetTrigger("Special");
+        Collider[] enemies =
+            Physics
+                .OverlapSphere(attackPoint.position, SpecialAttackRange, enemy);
+        foreach (Collider enemy in enemies)
+        {
+            if (enemy.GetComponent<EnemyGolem>())
+            {
+                enemy.GetComponent<EnemyGolem>().TakeDamage(specialDamage);
+            }
+            if (enemy.GetComponent<Enemy>())
+            {
+                enemy.GetComponent<Enemy>().TakeDamage(specialDamage);
+            }
+            
         }
     }
 
@@ -152,9 +194,5 @@ public class PlayerAttack : MonoBehaviour
         timer = true;
     }
 
-    public void TakeDamage(int damage)
-    {
-        currentHealth -= damage;
-        healthBar.setHealth (currentHealth);
-    }
+   
 }
