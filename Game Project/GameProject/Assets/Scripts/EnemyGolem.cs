@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,14 +37,17 @@ public class EnemyGolem : MonoBehaviour
 
     public int layerholder;
 
+    PhotonView pw;
     // Start is called before the first frame update
     
     void Start()
     {
         currentHealth = maxGolemHealth;
+        pw = GetComponent<PhotonView>();
         layerholder = LayerMask.NameToLayer("nonTargetable");
     }
 
+    [PunRPC]
     public void TakeDamage(int damage)
     {
         currentHealth = currentHealth - damage;
@@ -58,6 +62,7 @@ public class EnemyGolem : MonoBehaviour
         }
     }
 
+    [PunRPC]
     void Destroy()
     {
         Destroy (gameObject);

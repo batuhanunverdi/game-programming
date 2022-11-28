@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using StarterAssets;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -54,11 +56,17 @@ public class PlayerAttack : MonoBehaviour
     //CallAfterDelaychecki
     int a = 0;
 
+    private PlayerInput input;
+
+    PhotonView pw;
+
     void Start()
     {
         currentHealth = maxHealth;
         healthBar.setMaxHealth (maxHealth);
         time_remaining = maxTime;
+        input = GetComponent<PlayerInput>();
+        pw = GetComponent<PhotonView>();
     }
 
     public void TakeDamage(int damage)
@@ -69,7 +77,68 @@ public class PlayerAttack : MonoBehaviour
         
     }
     // Update is called once per frame
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.name == "HellCube")
+        {
+             StartCoroutine("Teleport",new Vector3(6.72f, 2.17f, -2294.65f));
+        }
+    }
     void Update()
+    {
+        if (pw.IsMine)
+        {
+            pw.RPC("checkAttack", RpcTarget.All, null);
+            pw.RPC("Die", RpcTarget.All, null);
+            pw.RPC("Special", RpcTarget.All, null);
+        }
+    }
+    [PunRPC]
+    IEnumerator Teleport(Vector3 teleportTarget)
+    {
+        yield return new WaitForSeconds(1f);
+        transform.position = teleportTarget;
+        yield return new WaitForSeconds(1f);
+        
+    }
+
+    [PunRPC]
+    public void Attack()
+    {
+        transform.GetComponent<Animator>().SetTrigger("Attack");
+        Collider[] enemies =
+            Physics.OverlapSphere(attackPoint.position, attackRange, enemy);
+        foreach (Collider enemy in enemies)
+        {
+            if (enemy.GetComponent<EnemyGolem>())
+            {
+                enemy.GetComponent<PhotonView>().RPC("TakeDamage",RpcTarget.All,attackDamage);
+            }
+            if (enemy.GetComponent<Enemy>())
+            {
+                enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
+            }
+
+            
+        }
+    }
+    [PunRPC]
+    public void checkAttack()
+    {
+        if (Time.time >= nextAttackTime)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (currentHealth > 0)
+                {
+                    Attack();
+                    nextAttackTime = Time.time + 1f / attackRate;
+                }
+            }
+        }
+    }
+    [PunRPC]
+    public void Die()
     {
         if (currentHealth <= 0)
         {
@@ -94,9 +163,13 @@ public class PlayerAttack : MonoBehaviour
                 GetComponent<ThirdPersonController>().enabled = true;
                 transform.GetComponent<Animator>().SetTrigger("Revive");
                 currentHealth = maxHealth;
-                healthBar.setHealth (currentHealth);
+                healthBar.setHealth(currentHealth);
             }
         }
+    }
+    [PunRPC]
+    public void Special()
+    {
         if (!special)
         {
             if (specialCooldown > 0)
@@ -113,18 +186,6 @@ public class PlayerAttack : MonoBehaviour
                 time_remaining = 10f;
             }
         }
-        if (Time.time >= nextAttackTime)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (currentHealth > 0)
-                {
-                    Attack();
-                    nextAttackTime = Time.time + 1f / attackRate;
-                }
-            }
-        }
-
         if (Input.GetKey(KeyCode.Q) && special)
         {
             if (currentHealth > 0)
@@ -134,27 +195,7 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
-
-    public void Attack()
-    {
-        transform.GetComponent<Animator>().SetTrigger("Attack");
-        Collider[] enemies =
-            Physics.OverlapSphere(attackPoint.position, attackRange, enemy);
-        foreach (Collider enemy in enemies)
-        {
-            if (enemy.GetComponent<EnemyGolem>())
-            {
-                enemy.GetComponent<EnemyGolem>().TakeDamage(attackDamage);
-            }
-            if (enemy.GetComponent<Enemy>())
-            {
-                enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
-            }
-
-            
-        }
-    }
-
+    [PunRPC]
     public void SpecialAttack()
     {
         transform.GetComponent<Animator>().SetTrigger("Special");
@@ -194,5 +235,9 @@ public class PlayerAttack : MonoBehaviour
         timer = true;
     }
 
-   
+    private void OnDisable()
+    {
+        input.actions = null;
+        input.enabled = false;
+    }
 }
