@@ -30,9 +30,8 @@ public class DestroyAndRespawnObjects : MonoBehaviour
 
     }
 
-    IEnumerator RespawnPlants(GameObject gam){
-        Debug.Log("Im working");
+    IEnumerator RespawnPlants(GameObject game){
         yield return new WaitForSeconds(delayTime);
-        gam.SetActive(true);
+        game.SetActive(true);
     }
 }

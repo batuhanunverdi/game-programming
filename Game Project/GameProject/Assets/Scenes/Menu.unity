@@ -1274,10 +1274,10 @@ RectTransform:
   m_Father: {fileID: 1669436073}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 9.945923, y: 321}
-  m_SizeDelta: {x: -432.82758, y: -408.8422}
+  m_AnchoredPosition: {x: 5.9699097, y: -167}
+  m_SizeDelta: {x: -51.8656, y: 143.5445}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1076168759
 MonoBehaviour:
@@ -1363,7 +1363,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -192.03012, y: 0, z: -242.60434, w: 0}
+  m_margin: {x: 1.9736633, y: 0, z: -0.6491089, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1593,7 +1593,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 94759efc1dc963e4d812590a6d709d3b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 236a8ddcb932b07478217c0197a8c95c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1718,6 +1718,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1076168757}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1236894221
 MonoBehaviour:

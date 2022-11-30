@@ -7,6 +7,8 @@ TagManager:
   - CinemachineTarget
   - Destroyable
   - Skill
+  - Bullet
+  - MenuMusic
   layers:
   - Default
   - TransparentFX
