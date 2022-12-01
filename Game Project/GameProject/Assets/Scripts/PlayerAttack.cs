@@ -61,13 +61,17 @@ using EnemyPlayer;
 
     PhotonView pw;
 
+    private void Awake()
+    {
+        pw = GetComponent<PhotonView>();
+
+    }
     void Start()
     {
         currentHealth = maxHealth;
         healthBar.setMaxHealth (maxHealth);
         time_remaining = maxTime;
         input = GetComponent<PlayerInput>();
-        pw = GetComponent<PhotonView>();
     }
 
     public void playerTakeDamage(int damage)
@@ -81,7 +85,7 @@ using EnemyPlayer;
     // Update is called once per frame
     private void OnTriggerStay(Collider other)
     {
-        if (other.name == "HellCube")
+        if(pw.IsMine)
         {
             StartCoroutine("Teleport",new Vector3(6.72f, 2.17f, -2294.65f));
             
@@ -100,9 +104,11 @@ using EnemyPlayer;
     [PunRPC]
     IEnumerator Teleport(Vector3 teleportTarget)
     {
+        Debug.Log("Teleporting...");
         yield return new WaitForSeconds(1f);
         transform.position = teleportTarget;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
+        Debug.Log("Teleport Finished");
         
     }
 
