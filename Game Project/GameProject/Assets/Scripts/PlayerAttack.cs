@@ -5,8 +5,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Photon.Pun;
+using EnemyPlayer;
 
-public class PlayerAttack : MonoBehaviour
+    public class PlayerAttack : MonoBehaviour
 {
     // Start is called before the first frame update
     public int maxHealth = 100;
@@ -69,19 +70,22 @@ public class PlayerAttack : MonoBehaviour
         pw = GetComponent<PhotonView>();
     }
 
-    public void TakeDamage(int damage)
+    public void playerTakeDamage(int damage)
     {
-        currentHealth -= damage;
+        currentHealth = currentHealth - damage;
+        
         healthBar.setHealth (currentHealth);
         transform.GetComponent<Animator>().SetTrigger("GetHit");
         
     }
     // Update is called once per frame
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.name == "HellCube")
         {
-             StartCoroutine("Teleport",new Vector3(6.72f, 2.17f, -2294.65f));
+            StartCoroutine("Teleport",new Vector3(6.72f, 2.17f, -2294.65f));
+            
+            EnemyGolem.playerList.Add(this.gameObject);
         }
     }
     void Update()
@@ -241,3 +245,5 @@ public class PlayerAttack : MonoBehaviour
         input.enabled = false;
     }
 }
+
+
