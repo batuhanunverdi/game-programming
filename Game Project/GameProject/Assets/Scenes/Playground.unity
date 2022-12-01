@@ -19935,6 +19935,11 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 1853751425220981366, guid: f56882d0bb45adf4fb7b450e4e6763d3,
+        type: 3}
+      propertyPath: ObservedComponents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f56882d0bb45adf4fb7b450e4e6763d3, type: 3}
 --- !u!1001 &838682585
@@ -34796,6 +34801,11 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 1853751425220981366, guid: f56882d0bb45adf4fb7b450e4e6763d3,
+        type: 3}
+      propertyPath: ObservedComponents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f56882d0bb45adf4fb7b450e4e6763d3, type: 3}
 --- !u!1001 &1458800679
@@ -46088,6 +46098,11 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 1853751425220981366, guid: f56882d0bb45adf4fb7b450e4e6763d3,
+        type: 3}
+      propertyPath: ObservedComponents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f56882d0bb45adf4fb7b450e4e6763d3, type: 3}
 --- !u!4 &1884112786 stripped
@@ -46813,7 +46828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e4355918986efc44a39bf288220c19e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 4711917006589621278, guid: 61a74ba6be197ab4da91105add6867d1,
+  playerPrefab: {fileID: 3128372810077577285, guid: 61a74ba6be197ab4da91105add6867d1,
     type: 3}
 --- !u!4 &1911451733 stripped
 Transform:
@@ -52524,6 +52539,11 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 1853751425220981366, guid: f56882d0bb45adf4fb7b450e4e6763d3,
+        type: 3}
+      propertyPath: ObservedComponents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f56882d0bb45adf4fb7b450e4e6763d3, type: 3}
 --- !u!1001 &2041092057151819741
@@ -52642,7 +52662,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.0754716, y: 1}
+    m_SensorSize: {x: 1.0735849, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
