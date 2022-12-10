@@ -1,28 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
-using Newtonsoft.Json;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayfabManager : MonoBehaviour
 {
     [Header("UI")]
     public TMP_Text messageText;
+
     public TMP_InputField emailInput;
+
     public TMP_InputField passwordInput;
+
     // Start is called before the first frame update
     void Start()
     {
-        
     }
-public void RegisterButton()
+
+    public void RegisterButton()
     {
         messageText.text = "";
-        if(passwordInput.text.Length < 6){
+        if (passwordInput.text.Length < 6)
+        {
             messageText.text = "Password too short!";
             return;
         }
@@ -43,7 +47,8 @@ public void RegisterButton()
     public void LoginButton()
     {
         messageText.text = "";
-        if(passwordInput.text.Length < 6){
+        if (passwordInput.text.Length < 6)
+        {
             messageText.text = "Password too short!";
             return;
         }
@@ -57,37 +62,103 @@ public void RegisterButton()
             OnLoginSuccess,
             OnError
         );
-         PFLogin.email = request.Email;
+        //PFLogin.email = request.Email;
     }
 
     void OnRegisterSuccess(RegisterPlayFabUserResult result)
     {
-        messageText.text = "Registered";
         Debug.Log("Registered and logged in!");
+        CreateData();
+        GetData();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     void OnLoginSuccess(LoginResult result)
     {
-       
         Debug.Log("Logged in");
+        GetData();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void CreateData()
+    {
+        var request =
+            new UpdateUserDataRequest {
+                Data =
+                    new Dictionary<string, string> {
+                        { "Level", "1" },
+                        { "Exp", "0" }
+                    }
+            };
+        PlayFabClientAPI.UpdateUserData (request, OnDataSend, OnError);
+    }
+
+    void OnDataSend(UpdateUserDataResult result)
+    {
+        Debug.Log("Succesful!");
+    }
+
+    public void GetData()
+    {
+    
+        PlayFabClientAPI
+            .GetUserData(new GetUserDataRequest(), OnDataReceived, OnError);
+    }
+
+    void OnDataReceived(GetUserDataResult result)
+    {
+        if (
+            result.Data != null &&
+            result.Data.ContainsKey("Level") &&
+            result.Data.ContainsKey("Exp")
+        )
+        {
+            Debug.Log(result.Data["Level"].Value);
+            PFLogin.level = result.Data["Level"].Value;
+            Debug.Log(result.Data["Exp"].Value);
+            PFLogin.exp = result.Data["Exp"].Value;
+        }
     }
 
     void OnError(PlayFabError error)
     {
-       
-        if(error.GenerateErrorReport() == "/Client/RegisterPlayFabUser: Email address not available\nEmail: Email address already exists. "){
+        if (
+            error.GenerateErrorReport() ==
+            "/Client/RegisterPlayFabUser: Email address not available\nEmail: Email address already exists. "
+        )
+        {
             messageText.text = "Email address already exists!";
-        }else if(error.GenerateErrorReport() == "/Client/RegisterPlayFabUser: Invalid input parameters\nEmail: Email address is not valid."){
+        }
+        else if (
+            error.GenerateErrorReport() ==
+            "/Client/RegisterPlayFabUser: Invalid input parameters\nEmail: Email address is not valid."
+        )
+        {
             messageText.text = "Invalid email!";
-        }else if(error.GenerateErrorReport() == "/Client/LoginWithEmailAddress: User not found"){
+        }
+        else if (
+            error.GenerateErrorReport() ==
+            "/Client/LoginWithEmailAddress: User not found"
+        )
+        {
             messageText.text = "No such user! Please register first.";
-        }else if(error.GenerateErrorReport() == "/Client/LoginWithEmailAddress: Invalid input parameters\nEmail: Email address is not valid."){
+        }
+        else if (
+            error.GenerateErrorReport() ==
+            "/Client/LoginWithEmailAddress: Invalid input parameters\nEmail: Email address is not valid."
+        )
+        {
             messageText.text = "Invalid email!";
-        }else if(error.GenerateErrorReport() == "/Client/LoginWithEmailAddress: Invalid email address or password"){
-             messageText.text = "Wrong password!";
-        }else{
+        }
+        else if (
+            error.GenerateErrorReport() ==
+            "/Client/LoginWithEmailAddress: Invalid email address or password"
+        )
+        {
+            messageText.text = "Wrong password!";
+        }
+        else
+        {
             messageText.text = "Unknown error";
         }
         Debug.Log(error.GenerateErrorReport());
@@ -98,6 +169,7 @@ public void RegisterButton()
     {
         messageText.text = "";
     }
+
     public void QuitGame()
     {
         Application.Quit();

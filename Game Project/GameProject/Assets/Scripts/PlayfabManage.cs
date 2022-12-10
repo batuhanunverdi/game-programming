@@ -10,11 +10,10 @@ using TMPro;
 public class PlayfabManage : MonoBehaviour
 {
    void Start(){
-      getName();
+      //getName();
    }
    
-     public TMP_Text messageText;
-     public void getName(){
+    /* public void getName(){
         PlayFabClientAPI.GetUserData(new GetUserDataRequest(), OnDataReceived, OnError);
      }
      void OnDataReceived(GetUserDataResult result){
@@ -26,5 +25,6 @@ public class PlayfabManage : MonoBehaviour
      void OnError(PlayFabError error){
         Debug.Log(error.GenerateErrorReport());
      }
+     */
  
 }

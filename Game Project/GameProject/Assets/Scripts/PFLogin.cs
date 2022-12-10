@@ -5,5 +5,6 @@ using UnityEngine;
 public static class PFLogin
 {
     // Start is called before the first frame update
-    public static string email;
+    public static string level;
+    public static string exp;
 }
