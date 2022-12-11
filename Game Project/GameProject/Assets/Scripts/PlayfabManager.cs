@@ -69,14 +69,12 @@ public class PlayfabManager : MonoBehaviour
     {
         Debug.Log("Registered and logged in!");
         CreateData();
-        GetData();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     void OnLoginSuccess(LoginResult result)
     {
         Debug.Log("Logged in");
-        GetData();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
     }
 
@@ -92,9 +90,10 @@ public class PlayfabManager : MonoBehaviour
                         { "Gold", "0"},
                         { "Character", "Female" },
                         { "Name", "noname" },
-                        { "Hair", "Default"},
-                        { "Weapon", "Default"},
-                        { "Shield", "Default"}
+                        { "Cloak", "Cloak03"},
+                        { "Body", "Default"},
+                        { "Weapon", "Sword0"},
+                        { "Shield", "Shield1"}
                     }
             };
         PlayFabClientAPI.UpdateUserData (request, OnDataSend, OnError);
@@ -103,30 +102,6 @@ public class PlayfabManager : MonoBehaviour
     void OnDataSend(UpdateUserDataResult result)
     {
         Debug.Log("Succesful!");
-    }
-
-    public void GetData()
-    {
-    
-        PlayFabClientAPI
-            .GetUserData(new GetUserDataRequest(), OnDataReceived, OnError);
-    }
-
-    void OnDataReceived(GetUserDataResult result)
-    {
-        if (
-            result.Data != null &&
-            result.Data.ContainsKey("Level") &&
-            result.Data.ContainsKey("Exp") && 
-            result.Data.ContainsKey("Gold")
-        )
-        {
-            Debug.Log(result.Data["Level"].Value);
-            PFLogin.level = result.Data["Level"].Value;
-            Debug.Log(result.Data["Exp"].Value);
-            PFLogin.exp = result.Data["Exp"].Value;
-            PFLogin.gold = result.Data["Gold"].Value;
-        }
     }
 
     void OnError(PlayFabError error)

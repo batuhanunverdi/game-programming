@@ -25,15 +25,24 @@ public class InstantiateWithDB : MonoBehaviour
             result.Data != null &&
             result.Data.ContainsKey("Level") &&
             result.Data.ContainsKey("Exp") && 
-            result.Data.ContainsKey("Gold")
+            result.Data.ContainsKey("Gold")&& 
+            result.Data.ContainsKey("Body")&& 
+            result.Data.ContainsKey("Cloak")&& 
+            result.Data.ContainsKey("Weapon")&& 
+            result.Data.ContainsKey("Shield")&& 
+            result.Data.ContainsKey("Name")&& 
+            result.Data.ContainsKey("Character")
         )
         {
             
             PFLogin.level = result.Data["Level"].Value;
-            Debug.Log(PFLogin.level);
-            Debug.Log(result.Data["Exp"].Value);
             PFLogin.exp = result.Data["Exp"].Value;
             PFLogin.gold = result.Data["Gold"].Value;
+            PFLogin.body = result.Data["Body"].Value;
+            PFLogin.cloak = result.Data["Cloak"].Value;
+            PFLogin.weapon = result.Data["Weapon"].Value;
+            PFLogin.shield = result.Data["Shield"].Value;
+            PFLogin.name = result.Data["Name"].Value;
             if(result.Data["Character"].Value == "Female" ){
                 PFLogin.prefabName = "Female";
             }else{

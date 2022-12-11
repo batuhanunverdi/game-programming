@@ -49,15 +49,24 @@ public class SelectName : MonoBehaviour
 
     public void CreateData()
     {
+        string cloak = "Cloak02";
+        string weapon = "Sword00";
+        string shield = "Shield0";
+        if(Temp.character == "Female"){
+            cloak = "Cloak03";
+            weapon = "Sword0";
+            shield = "Shield1";
+        }
         var request =
             new UpdateUserDataRequest {
                 Data =
                     new Dictionary<string, string> {
                         { "Character", Temp.character },
                         { "Name", name.text.ToString() },
-                        { "Hair", "Default"},
-                        { "Weapon", "Default"},
-                        { "Shield", "Default"}
+                        { "Body", "Body10"},
+                        { "Cloak", cloak},
+                        { "Weapon", weapon},
+                        { "Shield", shield}
                     }
             };
         PlayFabClientAPI.UpdateUserData (request, OnDataSend, OnError);

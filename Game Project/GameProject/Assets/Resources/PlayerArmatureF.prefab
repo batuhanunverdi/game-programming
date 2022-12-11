@@ -4298,7 +4298,7 @@ GameObject:
   - component: {fileID: 696976179251843529}
   - component: {fileID: 409238844413898305}
   m_Layer: 0
-  m_Name: OHS06Polyart
+  m_Name: Sword0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
