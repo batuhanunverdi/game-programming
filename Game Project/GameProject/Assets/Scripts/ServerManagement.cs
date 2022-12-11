@@ -62,8 +62,14 @@ public class ServerManagement : MonoBehaviourPunCallbacks
         Debug.Log(PFLogin.prefabName);
         if(PFLogin.prefabName=="Female"){
              gameObject = PhotonNetwork.Instantiate(playerPrefabFemale.name, new Vector3(73, 22, 34), Quaternion.identity, 0,null);
+             Debug.Log(gameObject.name);
+            GameObject body = GameObject.Find("PlayerArmature(Clone)/FemaleCharacterPolyart/Body05");
+            body.SetActive(true);
         }else{
             gameObject = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(73, 22, 34), Quaternion.identity, 0,null);
+            Debug.Log(gameObject.name);
+            GameObject body = GameObject.Find("PlayerArmature(Clone)/MaleCharacterPolyart/Body05");
+            body.SetActive(true);
         }
         gameObject.GetComponent<ThirdPersonController>().enabled = true;
         PlayerAttack pa = gameObject.GetComponent<PlayerAttack>();

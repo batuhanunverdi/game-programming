@@ -51840,9 +51840,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e4355918986efc44a39bf288220c19e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 2168770384604646075, guid: 61a74ba6be197ab4da91105add6867d1,
+  playerPrefab: {fileID: 2240962083393216804, guid: 61a74ba6be197ab4da91105add6867d1,
     type: 3}
-  playerPrefabFemale: {fileID: 6148291893782979893, guid: fe7c1f222ebfedc46b36b257496ea652,
+  playerPrefabFemale: {fileID: 844099067198767237, guid: fe7c1f222ebfedc46b36b257496ea652,
     type: 3}
 --- !u!114 &1910453745
 MonoBehaviour:
