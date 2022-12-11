@@ -10,6 +10,7 @@ namespace EnemyPlayer
 
     public class EnemyGolem : MonoBehaviour
 {
+    
     NavMeshAgent agent;
 
     //public Transform player;
@@ -56,7 +57,7 @@ namespace EnemyPlayer
     //public static List<Player> GetPlayerList(){
    //     return playerList;
     //}
-    public static List <GameObject> playerList;
+    //public static List <GameObject> playerList;
 
     PhotonView pw;
     // Start is called before the first frame update
@@ -67,7 +68,8 @@ namespace EnemyPlayer
         currentHealth = maxGolemHealth;
         pw = GetComponent<PhotonView>();
         layerholder = LayerMask.NameToLayer("nonTargetable");
-        playerList = new List<GameObject>();
+        //playerList = new List<GameObject>();
+            Debug.Log("sup");
         
     }
     /*private void Awake() {
@@ -84,17 +86,20 @@ namespace EnemyPlayer
 
         if (currentHealth <= 0)
         {
+            
             Die();
+
             gameObject.layer = layerholder;
-            Debug.Log("Current layer: " + gameObject.layer);
-            CallAfterDelay.Create(2.0f, Destroy);
-        }
+                Debug.Log("Current layer: " + gameObject.layer);
+                transform.parent.gameObject.GetComponent<EnemySpawner>().dead();
+                CallAfterDelay.Create(2.0f, Destroy);
+            }
     }
 
     [PunRPC]
     void Destroy()
-    {
-        Destroy (gameObject);
+    {  
+            Destroy (gameObject);
     }
 
     void Die()
@@ -150,13 +155,26 @@ namespace EnemyPlayer
 
     void Update()
     {
-        
-        golemAttackCooldown -= Time.deltaTime;
-    if(playerList.Count != 0){
-        foreach(GameObject p in playerList){
+            /*if(DesertPlayer.playerListDesert.Count != playerList.Count)
+            {
+                if (DesertPlayer.playerListDesert.Count != 0)
+                {
+                    foreach (GameObject ps in DesertPlayer.playerListDesert)
+                    {
+                        playerList.Add(ps);
+                        Debug.Log("xddddd");
+                    }
+                }
+            }*/
+            
+         
+            golemAttackCooldown -= Time.deltaTime;
+    if(DesertPlayer.playerListDesert.Count != 0){
+        foreach(GameObject p in DesertPlayer.playerListDesert){
         float distance = Vector3.Distance(p.transform.position, transform.position);
         if (distance <= sightRange)
         {
+                       
             agent.SetDestination(p.transform.position);
         }
         if (distance <= agent.stoppingDistance)

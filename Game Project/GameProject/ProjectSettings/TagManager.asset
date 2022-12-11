@@ -9,6 +9,8 @@ TagManager:
   - Skill
   - Bullet
   - MenuMusic
+  - TeleportDesert
+  - TeleportHell
   layers:
   - Default
   - TransparentFX

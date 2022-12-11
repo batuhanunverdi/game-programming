@@ -87,9 +87,20 @@ using EnemyPlayer;
     {
         if(pw.IsMine)
         {
-            StartCoroutine("Teleport",new Vector3(6.72f, 2.17f, -2294.65f));
+            if (other.gameObject == GameObject.FindGameObjectWithTag("TeleportDesert"))
+            {
+                StartCoroutine("Teleport", new Vector3(6.72f, 2.17f, -2294.65f));
+                DesertPlayer.playerListDesert.Add(this.gameObject);
+            }
             
-            EnemyGolem.playerList.Add(this.gameObject);
+            if (other.gameObject == GameObject.FindGameObjectWithTag("TeleportHell"))
+            {
+                StartCoroutine("Teleport", new Vector3(-3157.17f, 24.92f, 24.6f));
+                DesertPlayer.playerListDesert.Add(this.gameObject);
+            }
+            /*StartCoroutine("Teleport",new Vector3(6.72f, 2.17f, -2294.65f));
+            
+            DesertPlayer.playerListDesert.Add(this.gameObject);*/
         }
     }
     void Update()
@@ -104,11 +115,11 @@ using EnemyPlayer;
     [PunRPC]
     IEnumerator Teleport(Vector3 teleportTarget)
     {
-        Debug.Log("Teleporting...");
+        
         yield return new WaitForSeconds(1f);
         transform.position = teleportTarget;
         yield return new WaitForSeconds(3f);
-        Debug.Log("Teleport Finished");
+        
         
     }
 
@@ -122,7 +133,7 @@ using EnemyPlayer;
         {
             if (enemy.GetComponent<EnemyGolem>())
             {
-                enemy.GetComponent<PhotonView>().RPC("TakeDamage",RpcTarget.All,attackDamage);
+                enemy.GetComponent<EnemyGolem>().TakeDamage(attackDamage);
             }
             if (enemy.GetComponent<Enemy>())
             {

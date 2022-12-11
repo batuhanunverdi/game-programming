@@ -5,26 +5,76 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject theEnemy;
-    public int pos_x;
-    public int pos_z;
+    public Transform pointer;
+    public Vector3 point;
     public int enemyCounter;
+    public bool deadge=false;
+    public bool flag= false;
+    public bool check = false;
+    public GameObject cube;
+    public CallAfterDelay CallAfterDelay;
+    
+    public bool timeReac = false;
     
 
-    //þuablýk start içinde ama multi olduðu için update içine almak lazým
-    void Start()
+    
+    void Update()
     {
-        StartCoroutine(enemySpawn());
+        if (!flag) {
+            if (!timeReac)
+            {
+                StartCoroutine(waiteer());
+                
+                Debug.Log("spawned");
+                timeReac = true;
+                
+                flag = true;
+            }
+                
+              
+            
+            
+            
+            
+            
+
+
+        }
+
     }
-    IEnumerator enemySpawn()
+    IEnumerator waiteer()
     {
-        while (enemyCounter < 7)
+        timeReac = true;
+        yield return new WaitForSeconds(8);
+        enemySpawn();
+        timeReac = false;
+    }
+    public void dead() {
+        deadge = false;
+        enemyCounter--;
+        flag = false;
+        
+        
+        
+    }
+    public void enemySpawn()
+    {
+
+        while (enemyCounter < 1 && deadge != true)
         {
-            pos_x = Random.Range(1, 1);
-            pos_z = Random.Range(1, 1);
-            Instantiate(theEnemy, new Vector3(pos_x, 50, pos_z), Quaternion.identity);
-            yield return new WaitForSeconds(0.9f);
+            
+            
+
+            point = pointer.transform.position;
+            
+            var golem=Instantiate(theEnemy, point, Quaternion.identity);
+            golem.transform.parent = gameObject.transform;
+            
             enemyCounter++;
+            deadge = true;
+            
         }
     }
+   
 
 }
