@@ -51842,7 +51842,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 2168770384604646075, guid: 61a74ba6be197ab4da91105add6867d1,
     type: 3}
-  playerPrefabFemale: {fileID: 4212572456485969957, guid: fe7c1f222ebfedc46b36b257496ea652,
+  playerPrefabFemale: {fileID: 6148291893782979893, guid: fe7c1f222ebfedc46b36b257496ea652,
     type: 3}
 --- !u!114 &1910453745
 MonoBehaviour:
@@ -58365,7 +58365,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.156015, y: 1}
+    m_SensorSize: {x: 2.1213872, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
