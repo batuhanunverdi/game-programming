@@ -77,17 +77,24 @@ public class PlayfabManager : MonoBehaviour
     {
         Debug.Log("Logged in");
         GetData();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
     }
 
     public void CreateData()
     {
+        
         var request =
             new UpdateUserDataRequest {
                 Data =
                     new Dictionary<string, string> {
                         { "Level", "1" },
-                        { "Exp", "0" }
+                        { "Exp", "0" },
+                        { "Gold", "0"},
+                        { "Character", "Female" },
+                        { "Name", "noname" },
+                        { "Hair", "Default"},
+                        { "Weapon", "Default"},
+                        { "Shield", "Default"}
                     }
             };
         PlayFabClientAPI.UpdateUserData (request, OnDataSend, OnError);
@@ -110,13 +117,15 @@ public class PlayfabManager : MonoBehaviour
         if (
             result.Data != null &&
             result.Data.ContainsKey("Level") &&
-            result.Data.ContainsKey("Exp")
+            result.Data.ContainsKey("Exp") && 
+            result.Data.ContainsKey("Gold")
         )
         {
             Debug.Log(result.Data["Level"].Value);
             PFLogin.level = result.Data["Level"].Value;
             Debug.Log(result.Data["Exp"].Value);
             PFLogin.exp = result.Data["Exp"].Value;
+            PFLogin.gold = result.Data["Gold"].Value;
         }
     }
 

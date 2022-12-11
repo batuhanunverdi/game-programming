@@ -51805,6 +51805,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1910453743}
   - component: {fileID: 1910453744}
+  - component: {fileID: 1910453745}
   m_Layer: 0
   m_Name: ServerManagement
   m_TagString: Untagged
@@ -51839,8 +51840,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e4355918986efc44a39bf288220c19e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 3128372810077577285, guid: 61a74ba6be197ab4da91105add6867d1,
+  playerPrefab: {fileID: 2168770384604646075, guid: 61a74ba6be197ab4da91105add6867d1,
     type: 3}
+  playerPrefabFemale: {fileID: 4212572456485969957, guid: fe7c1f222ebfedc46b36b257496ea652,
+    type: 3}
+--- !u!114 &1910453745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910453742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bc422d1bd4cfbe4784c2174cb763781, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1911451733 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4860489496569928, guid: fe224bf466c1e5f40883ad83a17a6f7b,

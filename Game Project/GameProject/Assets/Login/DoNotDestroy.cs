@@ -18,7 +18,7 @@ public class DoNotDestroy : MonoBehaviour
     void Update()
     {
         Scene scene = SceneManager.GetActiveScene();
-        if (scene.name == "LoginRegister" || scene.name == "Menu")
+        if (scene.name == "LoginRegister" || scene.name == "Menu" || scene.name=="CharacterSelection")
         {
             DontDestroyOnLoad(this.gameObject);
         }

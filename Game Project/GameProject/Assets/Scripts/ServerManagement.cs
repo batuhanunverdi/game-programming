@@ -10,6 +10,7 @@ using StarterAssets;
 public class ServerManagement : MonoBehaviourPunCallbacks
 {
     public PhotonView playerPrefab;
+    public PhotonView playerPrefabFemale;
     private HealthBar healthBar;
     private GameOverScreen gameOverScreen;
     private TeleportDesert hellCube;
@@ -57,7 +58,13 @@ public class ServerManagement : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        GameObject gameObject = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(73, 22, 34), Quaternion.identity, 0,null);
+        GameObject gameObject ;
+        Debug.Log(PFLogin.prefabName);
+        if(PFLogin.prefabName=="Female"){
+             gameObject = PhotonNetwork.Instantiate(playerPrefabFemale.name, new Vector3(73, 22, 34), Quaternion.identity, 0,null);
+        }else{
+            gameObject = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(73, 22, 34), Quaternion.identity, 0,null);
+        }
         gameObject.GetComponent<ThirdPersonController>().enabled = true;
         PlayerAttack pa = gameObject.GetComponent<PlayerAttack>();
         pa.healthBar = healthBar;
