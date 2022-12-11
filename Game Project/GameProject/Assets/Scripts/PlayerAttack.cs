@@ -96,7 +96,7 @@ using EnemyPlayer;
             if (other.gameObject == GameObject.FindGameObjectWithTag("TeleportHell"))
             {
                 StartCoroutine("Teleport", new Vector3(-3157.17f, 24.92f, 24.6f));
-                DesertPlayer.playerListDesert.Add(this.gameObject);
+                //DesertPlayer.playerListDesert.Add(this.gameObject);
             }
             /*StartCoroutine("Teleport",new Vector3(6.72f, 2.17f, -2294.65f));
             

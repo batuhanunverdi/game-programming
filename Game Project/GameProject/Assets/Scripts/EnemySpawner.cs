@@ -30,15 +30,6 @@ public class EnemySpawner : MonoBehaviour
                 
                 flag = true;
             }
-                
-              
-            
-            
-            
-            
-            
-
-
         }
 
     }
@@ -62,8 +53,6 @@ public class EnemySpawner : MonoBehaviour
 
         while (enemyCounter < 1 && deadge != true)
         {
-            
-            
 
             point = pointer.transform.position;
             
