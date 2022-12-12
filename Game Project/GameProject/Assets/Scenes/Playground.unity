@@ -38775,7 +38775,7 @@ MonoBehaviour:
   reliableMode: 0
   encrypt: 0
   transmitEnabled: 1
-  samplingRate: 24000
+  samplingRate: 48000
   frameDuration: 20000
   bitrate: 30000
   sourceType: 0
@@ -58956,7 +58956,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.0783035, y: 1}
+    m_SensorSize: {x: 1.0444015, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
