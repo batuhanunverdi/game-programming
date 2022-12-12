@@ -5007,6 +5007,7 @@ GameObject:
   - component: {fileID: 153660387443018655}
   - component: {fileID: 844099067198767237}
   - component: {fileID: 1367389636806298514}
+  - component: {fileID: 5941740603648858740}
   m_Layer: 8
   m_Name: PlayerArmatureF
   m_TagString: Player
@@ -5406,6 +5407,18 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 2
     LayerIndex: 0
+--- !u!114 &5941740603648858740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7522789788712418986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 126494ae2a10a34499272ed97a6c9f5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7691987915581425425
 GameObject:
   m_ObjectHideFlags: 0
