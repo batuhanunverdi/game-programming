@@ -62298,7 +62298,7 @@ PrefabInstance:
     - target: {fileID: 3284873965792925863, guid: 468fb64a8cb1fd44eb7d41de04cdffee,
         type: 3}
       propertyPath: m_text
-      value: "\nGAME  OVER  \n\nPress \"R\" to Revive..."
+      value: "\nGAME  OVER  \n\nPress \"R\" to Revive"
       objectReference: {fileID: 0}
     - target: {fileID: 3284873965792925863, guid: 468fb64a8cb1fd44eb7d41de04cdffee,
         type: 3}
