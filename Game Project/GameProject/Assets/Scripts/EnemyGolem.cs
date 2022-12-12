@@ -72,7 +72,6 @@ namespace EnemyPlayer
             layerholder = LayerMask.NameToLayer("nonTargetable");
             startedLayerHolder = LayerMask.NameToLayer("Enemy");
             //playerList = new List<GameObject>();
-            Debug.Log("sup");
 
         }
         /*private void Awake() {

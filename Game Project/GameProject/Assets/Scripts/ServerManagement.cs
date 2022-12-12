@@ -61,7 +61,6 @@ public class ServerManagement : MonoBehaviourPunCallbacks
     {
         GameObject gameObject;
         string s = "PlayerArmature(Clone)/";
-        Debug.Log(PFLogin.prefabName);
         if(PFLogin.prefabName=="Female"){
              gameObject = PhotonNetwork.Instantiate(playerPrefabFemale.name, new Vector3(73, 22, 34), Quaternion.identity, 0,null);
              s = "PlayerArmatureF(Clone)/";
@@ -70,10 +69,8 @@ public class ServerManagement : MonoBehaviourPunCallbacks
             gameObject = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(73, 22, 34), Quaternion.identity, 0,null);
             s += "MaleCharacterPolyart/";
         }
-        Debug.Log(s+PFLogin.body);
         GameObject body = GameObject.Find(s+PFLogin.body);
         GameObject cloak = GameObject.Find(s+PFLogin.cloak);
-        Debug.Log(PFLogin.shield);
         GameObject shield = GameObject.Find(s+"root/pelvis/spine_01/spine_02/spine_03/clavicle_l/upperarm_l/lowerarm_l/hand_l/weapon_l/"+PFLogin.shield);
         GameObject weapon = GameObject.Find(s+"root/pelvis/spine_01/spine_02/spine_03/clavicle_r/upperarm_r/lowerarm_r/hand_r/weapon_r/"+PFLogin.weapon);
         body.SetActive(true);
