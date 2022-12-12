@@ -13,10 +13,10 @@ public class ServerManagement : MonoBehaviourPunCallbacks
     public PhotonView playerPrefabFemale;
     private HealthBar healthBar;
     private GameOverScreen gameOverScreen;
-    private TeleportDesert hellCube;
     private CinemachineVirtualCamera followCamera;
     private GameObject playerCameraRoot;
     private Image image;
+    private LoadScreen loadScreen;
     // Start is called before the first frame update
 
     private void Awake()
@@ -32,9 +32,10 @@ public class ServerManagement : MonoBehaviourPunCallbacks
     {
         healthBar = PhotonView.Find(3).GetComponent<HealthBar>();
         gameOverScreen = PhotonView.Find(2).GetComponent<GameOverScreen>();
-        hellCube = PhotonView.Find(4).GetComponent<TeleportDesert>();
         followCamera = PhotonView.Find(5).GetComponent<CinemachineVirtualCamera>();
         image = PhotonView.Find(1).GetComponent<Image>();
+        loadScreen = PhotonView.Find(17).GetComponent<LoadScreen>();
+
     }
 
 
@@ -87,6 +88,7 @@ public class ServerManagement : MonoBehaviourPunCallbacks
         pa.w = image;
         playerCameraRoot = GameObject.FindGameObjectWithTag("Player");
         followCamera.Follow = playerCameraRoot.transform;
+        CallAfterDelay.Create(1.0f, loadScreen.Setup2);
         pa.GameOverScreen.Setup2();
         Debug.Log("Connected to the Room");
     }
