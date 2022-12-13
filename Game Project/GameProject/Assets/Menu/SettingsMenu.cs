@@ -5,21 +5,16 @@ using UnityEngine.UI;
 using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
+using UnityEngine.Audio;
 
 public class SettingsMenu : MonoBehaviour
 {
     public CanvasRenderer Skill;
     public Slider Healthbar;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+     public AudioMixer audioMixer;
+    public void SetVolume(float volume){
+        audioMixer.SetFloat("volume",Mathf.Log10(volume) * 20);
     }
     public void QuitGame(){
         
