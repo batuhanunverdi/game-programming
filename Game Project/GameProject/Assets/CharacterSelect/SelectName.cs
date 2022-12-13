@@ -11,6 +11,7 @@ using UnityEngine.UI;
 public class SelectName : MonoBehaviour
 {
     public TMP_InputField name;
+    public TMP_Text errorText;
 
     public Transform parentObject;
 
@@ -43,7 +44,14 @@ public class SelectName : MonoBehaviour
     public void FinishButton()
     {
         if(name.text.Length > 4 && name.text.Length<14){
+            UpdateDisplayName();
             CreateData();
+        }else if(name.text.Length == 4){
+            errorText.text = "Name too short!";
+            return;
+        }else {
+            errorText.text = "Name too long!";
+            return;
         }
     }
 
@@ -61,8 +69,10 @@ public class SelectName : MonoBehaviour
             new UpdateUserDataRequest {
                 Data =
                     new Dictionary<string, string> {
+                        { "Level", "1" },
+                        { "Exp", "0" },
+                        { "Gold", "0"},
                         { "Character", Temp.character },
-                        { "Name", name.text.ToString() },
                         { "Body", "Body10"},
                         { "Cloak", cloak},
                         { "Weapon", weapon},
@@ -71,7 +81,18 @@ public class SelectName : MonoBehaviour
             };
         PlayFabClientAPI.UpdateUserData (request, OnDataSend, OnError);
     }
-
+    void UpdateDisplayName() {
+        PlayFabClientAPI.UpdateUserTitleDisplayName( new UpdateUserTitleDisplayNameRequest {
+            DisplayName = name.text
+        }, result => {
+            Debug.Log("The player's display name is now: " + result.DisplayName);
+        }, error => {Debug.LogError(error.GenerateErrorReport());
+            errorText.text = "Username not available!";
+            return;
+        }
+        
+        );
+    }
     void OnDataSend(UpdateUserDataResult result)
     {
         Debug.Log("Succesful!");

@@ -68,7 +68,7 @@ public class PlayfabManager : MonoBehaviour
     void OnRegisterSuccess(RegisterPlayFabUserResult result)
     {
         Debug.Log("Registered and logged in!");
-        CreateData();
+        UpdateDisplayName();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
@@ -77,10 +77,19 @@ public class PlayfabManager : MonoBehaviour
         Debug.Log("Logged in");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
     }
-
+    public static string RandomString()
+    {
+       const string glyphs= "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
+       int charAmount = 7;
+       string myString = "";
+       for(int i=0; i<charAmount; i++)
+        {
+             myString += glyphs[Random.Range(0, glyphs.Length)];
+        }
+        return myString;
+    }
     public void CreateData()
     {
-        
         var request =
             new UpdateUserDataRequest {
                 Data =
@@ -89,16 +98,25 @@ public class PlayfabManager : MonoBehaviour
                         { "Exp", "0" },
                         { "Gold", "0"},
                         { "Character", "Female" },
-                        { "Name", "noname" },
                         { "Cloak", "Cloak03"},
-                        { "Body", "Default"},
+                        { "Body", "body10"},
                         { "Weapon", "Sword0"},
                         { "Shield", "Shield1"}
                     }
             };
         PlayFabClientAPI.UpdateUserData (request, OnDataSend, OnError);
-    }
 
+    }
+    void UpdateDisplayName() {
+        float randomNumber = Random.Range(0, 10000000);
+        string randomString = RandomString();
+        PlayFabClientAPI.UpdateUserTitleDisplayName( new UpdateUserTitleDisplayNameRequest {
+            DisplayName = "Lazy"+randomNumber+randomString
+        }, result => {
+            Debug.Log("The player's display name is now: " + result.DisplayName);
+        }, error => Debug.LogError(error.GenerateErrorReport()));
+        CreateData();
+    }
     void OnDataSend(UpdateUserDataResult result)
     {
         Debug.Log("Succesful!");
