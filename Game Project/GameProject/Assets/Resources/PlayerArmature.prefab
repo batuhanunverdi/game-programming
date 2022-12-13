@@ -4268,6 +4268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  Powerup: {fileID: 0}
   currentHealth: 100
   healthBar: {fileID: 8415946384861367768, guid: dd25cbbbd02c603419f11b8d6b8a59c7,
     type: 3}

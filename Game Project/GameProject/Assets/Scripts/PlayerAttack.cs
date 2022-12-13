@@ -9,8 +9,10 @@ using EnemyPlayer;
 
     public class PlayerAttack : MonoBehaviour
 {
+   
     // Start is called before the first frame update
     public int maxHealth = 100;
+    public Powerup Powerup;
 
     public int currentHealth;
 
@@ -87,16 +89,21 @@ using EnemyPlayer;
     {
         if(pw.IsMine)
         {
+
             if (other.gameObject == GameObject.FindGameObjectWithTag("TeleportDesert"))
             {
                 StartCoroutine("Teleport", new Vector3(6.72f, 2.17f, -2294.65f));
-                DesertPlayer.playerListDesert.Add(this.gameObject);
+                DesertPlayer.playerListDesert.Add(this.gameObject);  
             }
             
             if (other.gameObject == GameObject.FindGameObjectWithTag("TeleportHell"))
             {
                 StartCoroutine("Teleport", new Vector3(-3157.17f, 24.92f, 24.6f));
                 //DesertPlayer.playerListDesert.Add(this.gameObject);
+            }
+            if (other.gameObject == GameObject.FindGameObjectWithTag("TeleportHome"))
+            { 
+                StartCoroutine("Teleport", new Vector3(73.1f, 22.03f, 34.92f));
             }
             /*StartCoroutine("Teleport",new Vector3(6.72f, 2.17f, -2294.65f));
             
@@ -116,11 +123,16 @@ using EnemyPlayer;
     IEnumerator Teleport(Vector3 teleportTarget)
     {
         
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.01f);
+        GetComponent<ThirdPersonController>().enabled = false;
         transform.position = teleportTarget;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(0.01f);
+        GetComponent<ThirdPersonController>().enabled = true;
         
         
+        
+
+
     }
 
     [PunRPC]
