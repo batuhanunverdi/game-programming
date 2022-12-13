@@ -150,7 +150,7 @@ namespace EnemyPlayer
         }
 
 
-        void faceTarget()
+        void faceTarget(Transform target)
         {
             Vector3 direction = (target.position - transform.position).normalized;
             Quaternion faceRotate =
@@ -160,7 +160,7 @@ namespace EnemyPlayer
                     .Slerp(transform.rotation, faceRotate, Time.deltaTime * 5);
         }
 
-        void OnDrawGizmosSelected()
+        void OnDrawGizmosSelected(Transform target)
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, sightRange);
@@ -193,11 +193,12 @@ namespace EnemyPlayer
                     float distance = Vector3.Distance(p.transform.position, transform.position);
                     if (distance <= sightRange)
                     {
-
+                        faceTarget(p.transform);
                         agent.SetDestination(p.transform.position);
                     }
                     if (distance <= agent.stoppingDistance)
                     {
+                        
                         gAttack();
 
                     }

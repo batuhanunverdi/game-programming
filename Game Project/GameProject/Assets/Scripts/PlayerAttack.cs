@@ -147,9 +147,9 @@ using EnemyPlayer;
             {
                 enemy.GetComponent<EnemyGolem>().TakeDamage(attackDamage);
             }
-            if (enemy.GetComponent<Enemy>())
+            if (enemy.GetComponent<EnemySkeleton>())
             {
-                enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
+                enemy.GetComponent<EnemySkeleton>().skeletonTakeDamage(attackDamage);
             }
 
             
@@ -241,9 +241,9 @@ using EnemyPlayer;
             {
                 enemy.GetComponent<EnemyGolem>().TakeDamage(specialDamage);
             }
-            if (enemy.GetComponent<Enemy>())
+            if (enemy.GetComponent<EnemySkeleton>())
             {
-                enemy.GetComponent<Enemy>().TakeDamage(specialDamage);
+                enemy.GetComponent<EnemySkeleton>().skeletonTakeDamage(specialDamage);
             }
             
         }
