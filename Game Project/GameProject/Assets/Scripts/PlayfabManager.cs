@@ -11,6 +11,7 @@ using UnityEngine.UI;
 public class PlayfabManager : MonoBehaviour
 {
     bool flag = false;
+    string MyPlayfabID;
     [Header("UI")]
     public TMP_Text messageText;
 
@@ -77,19 +78,56 @@ public class PlayfabManager : MonoBehaviour
     void OnLoginSuccess(LoginResult result)
     {
         Debug.Log("Logged in");
+        GetAccountInfo();
+        GetPlayerProfile(MyPlayfabID);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
     }
+    void GetAccountInfo()
+    {
+        GetAccountInfoRequest request = new GetAccountInfoRequest();
+        PlayFabClientAPI.GetAccountInfo (request, Successs, fail);
+    }
+
+    void Successs(GetAccountInfoResult result)
+    {
+        MyPlayfabID = result.AccountInfo.PlayFabId;
+    }
+
+    void fail(PlayFabError error)
+    {
+        Debug.LogError(error.GenerateErrorReport());
+    }
+
+    void GetPlayerProfile(string playFabId)
+    {
+        PlayFabClientAPI
+            .GetPlayerProfile(new GetPlayerProfileRequest()
+            {
+                PlayFabId = playFabId,
+                ProfileConstraints =
+                    new PlayerProfileViewConstraints()
+                    { ShowDisplayName = true }
+            },
+            result =>{
+                Debug.Log("The player's DisplayName profile data is: " +
+                    result.PlayerProfile.DisplayName);
+                    PFLogin.name = result.PlayerProfile.DisplayName;
+            },
+            error => Debug.LogError(error.GenerateErrorReport()));
+    }
+
     public static string RandomString()
     {
-       const string glyphs= "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
-       int charAmount = 7;
-       string myString = "";
-       for(int i=0; i<charAmount; i++)
+        const string glyphs = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        int charAmount = 7;
+        string myString = "";
+        for (int i = 0; i < charAmount; i++)
         {
-             myString += glyphs[Random.Range(0, glyphs.Length)];
+            myString += glyphs[Random.Range(0, glyphs.Length)];
         }
         return myString;
     }
+
     public void CreateData()
     {
         var request =
@@ -98,30 +136,40 @@ public class PlayfabManager : MonoBehaviour
                     new Dictionary<string, string> {
                         { "Level", "1" },
                         { "Exp", "0" },
-                        { "Gold", "0"},
+                        { "Gold", "0" },
                         { "Character", "Female" },
-                        { "Cloak", "Cloak03"},
-                        { "Body", "body10"},
-                        { "Weapon", "Sword0"},
-                        { "Shield", "Shield1"}
+                        { "Cloak", "Cloak03" },
+                        { "Body", "Body10" },
+                        { "Weapon", "Sword0" },
+                        { "Shield", "Shield1" },
+                        { "Inventory", "" }
                     }
             };
         PlayFabClientAPI.UpdateUserData (request, OnDataSend, OnError);
-
     }
-    void UserDisplayName() {
+
+    void UserDisplayName()
+    {
         float randomNumber = Random.Range(0, 10000000);
         string randomString = RandomString();
-        PlayFabClientAPI.UpdateUserTitleDisplayName( new UpdateUserTitleDisplayNameRequest {
-            DisplayName = "Lazy"+randomNumber+randomString
-        }, result => {
-            Debug.Log("The player's display name is now: " + result.DisplayName);
-            flag = true;
-        }, error =>{
-            Debug.LogError(error.GenerateErrorReport());
-            flag = false;
-        } );
+        PlayFabClientAPI
+            .UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest {
+                DisplayName = "Lazy" + randomNumber + randomString
+            },
+            result =>
+            {
+                Debug
+                    .Log("The player's display name is now: " +
+                    result.DisplayName);
+                flag = true;
+            },
+            error =>
+            {
+                Debug.LogError(error.GenerateErrorReport());
+                flag = false;
+            });
     }
+
     void OnDataSend(UpdateUserDataResult result)
     {
         Debug.Log("Succesful!");

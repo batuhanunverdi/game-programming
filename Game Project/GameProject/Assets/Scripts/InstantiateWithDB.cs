@@ -30,7 +30,8 @@ public class InstantiateWithDB : MonoBehaviour
             result.Data.ContainsKey("Cloak")&& 
             result.Data.ContainsKey("Weapon")&& 
             result.Data.ContainsKey("Shield")&& 
-            result.Data.ContainsKey("Character")
+            result.Data.ContainsKey("Character") && 
+            result.Data.ContainsKey("Inventory")
         )
         {
             
@@ -41,6 +42,7 @@ public class InstantiateWithDB : MonoBehaviour
             PFLogin.cloak = result.Data["Cloak"].Value;
             PFLogin.weapon = result.Data["Weapon"].Value;
             PFLogin.shield = result.Data["Shield"].Value;
+            PFLogin.inventory = result.Data["Inventory"].Value;
             if(result.Data["Character"].Value == "Female" ){
                 PFLogin.prefabName = "Female";
             }else{

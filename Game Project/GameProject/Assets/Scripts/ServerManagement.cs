@@ -73,6 +73,7 @@ public class ServerManagement : MonoBehaviourPunCallbacks
         GameObject cloak = GameObject.Find(s+PFLogin.cloak);
         GameObject shield = GameObject.Find(s+"root/pelvis/spine_01/spine_02/spine_03/clavicle_l/upperarm_l/lowerarm_l/hand_l/weapon_l/"+PFLogin.shield);
         GameObject weapon = GameObject.Find(s+"root/pelvis/spine_01/spine_02/spine_03/clavicle_r/upperarm_r/lowerarm_r/hand_r/weapon_r/"+PFLogin.weapon);
+        Debug.Log(s+PFLogin.body);
         body.SetActive(true);
         cloak.SetActive(true);
         shield.SetActive(true);

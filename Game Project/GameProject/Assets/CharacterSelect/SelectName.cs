@@ -88,6 +88,7 @@ public class SelectName : MonoBehaviour
         }, result => {
             Debug.Log("The player's display name is now: " + result.DisplayName);
             flag = true;
+            PFLogin.name = name.text;
         }, error => {Debug.LogError(error.GenerateErrorReport());
             errorText.text = "Username not available!";
             flag = false;
