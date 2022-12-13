@@ -10,6 +10,7 @@ using UnityEngine.UI;
 
 public class PlayfabManager : MonoBehaviour
 {
+    bool flag = false;
     [Header("UI")]
     public TMP_Text messageText;
 
@@ -68,7 +69,8 @@ public class PlayfabManager : MonoBehaviour
     void OnRegisterSuccess(RegisterPlayFabUserResult result)
     {
         Debug.Log("Registered and logged in!");
-        UpdateDisplayName();
+        UserDisplayName();
+        CreateData();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
@@ -107,15 +109,18 @@ public class PlayfabManager : MonoBehaviour
         PlayFabClientAPI.UpdateUserData (request, OnDataSend, OnError);
 
     }
-    void UpdateDisplayName() {
+    void UserDisplayName() {
         float randomNumber = Random.Range(0, 10000000);
         string randomString = RandomString();
         PlayFabClientAPI.UpdateUserTitleDisplayName( new UpdateUserTitleDisplayNameRequest {
             DisplayName = "Lazy"+randomNumber+randomString
         }, result => {
             Debug.Log("The player's display name is now: " + result.DisplayName);
-        }, error => Debug.LogError(error.GenerateErrorReport()));
-        CreateData();
+            flag = true;
+        }, error =>{
+            Debug.LogError(error.GenerateErrorReport());
+            flag = false;
+        } );
     }
     void OnDataSend(UpdateUserDataResult result)
     {

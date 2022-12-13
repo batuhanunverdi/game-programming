@@ -10,6 +10,7 @@ using UnityEngine.UI;
 
 public class SelectName : MonoBehaviour
 {
+    bool flag = false;
     public TMP_InputField name;
     public TMP_Text errorText;
 
@@ -43,10 +44,10 @@ public class SelectName : MonoBehaviour
 
     public void FinishButton()
     {
-        if(name.text.Length > 4 && name.text.Length<14){
+        if(name.text.Length > 3 && name.text.Length<14){
             UpdateDisplayName();
-            CreateData();
-        }else if(name.text.Length == 4){
+            if(flag) CreateData();
+        }else if(name.text.Length == 3){
             errorText.text = "Name too short!";
             return;
         }else {
@@ -86,9 +87,10 @@ public class SelectName : MonoBehaviour
             DisplayName = name.text
         }, result => {
             Debug.Log("The player's display name is now: " + result.DisplayName);
+            flag = true;
         }, error => {Debug.LogError(error.GenerateErrorReport());
             errorText.text = "Username not available!";
-            return;
+            flag = false;
         }
         
         );
