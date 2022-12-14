@@ -19816,7 +19816,7 @@ MonoBehaviour:
   Skill: {fileID: 1905807949}
   Healthbar: {fileID: 519767245}
   EscMenu: {fileID: 718293944}
-  nameText: {fileID: 0}
+  nameText: {fileID: 378759388}
 --- !u!114 &718293946
 MonoBehaviour:
   m_ObjectHideFlags: 0
