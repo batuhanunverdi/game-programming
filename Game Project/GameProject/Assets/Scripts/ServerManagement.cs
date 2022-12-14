@@ -9,14 +9,38 @@ using StarterAssets;
 
 public class ServerManagement : MonoBehaviourPunCallbacks
 {
-    public PhotonView playerPrefab;
-    public PhotonView playerPrefabFemale;
+    public PhotonView playerPrefab1_0;
+    public PhotonView playerPrefab1_1;
+    public PhotonView playerPrefab1_2;
+    public PhotonView playerPrefab2_0;
+    public PhotonView playerPrefab2_1;
+    public PhotonView playerPrefab2_2;
+    public PhotonView playerPrefab3_0;
+    public PhotonView playerPrefab3_1;
+    public PhotonView playerPrefab3_2;
+    public PhotonView playerPrefab4_0;
+    public PhotonView playerPrefab4_1;
+    public PhotonView playerPrefab4_2;
+    public PhotonView playerPrefabFemale1_0;
+    public PhotonView playerPrefabFemale1_1;
+    public PhotonView playerPrefabFemale1_2;
+    public PhotonView playerPrefabFemale2_0;
+    public PhotonView playerPrefabFemale2_1;
+    public PhotonView playerPrefabFemale2_2;
+    public PhotonView playerPrefabFemale3_0;
+    public PhotonView playerPrefabFemale3_1;
+    public PhotonView playerPrefabFemale3_2;
+    public PhotonView playerPrefabFemale4_0;
+    public PhotonView playerPrefabFemale4_1;
+    public PhotonView playerPrefabFemale4_2;
     private HealthBar healthBar;
     private GameOverScreen gameOverScreen;
     private CinemachineVirtualCamera followCamera;
     private GameObject playerCameraRoot;
     private Image image;
     private LoadScreen loadScreen;
+    PhotonView[] array;
+    PhotonView temp;
     // Start is called before the first frame update
 
     private void Awake()
@@ -59,25 +83,58 @@ public class ServerManagement : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        GameObject gameObject;
-        string s = "PlayerArmature(Clone)/";
-        if(PFLogin.prefabName=="Female"){
-             gameObject = PhotonNetwork.Instantiate(playerPrefabFemale.name, new Vector3(73, 22, 34), Quaternion.identity, 0,null);
-             s = "PlayerArmatureF(Clone)/";
-             s += "FemaleCharacterPolyart/";
+        if(PFLogin.gender == "Female"){
+            if(PFLogin.shield == "Shield0"){
+                if(PFLogin.weapon == "Sword0") PFLogin.prefabName = "PlayerArmatureF.1.0";
+                else if (PFLogin.weapon == "Sword04.1") PFLogin.prefabName = "PlayerArmatureF.1.1";
+                else if (PFLogin.weapon == "Sword03.1") PFLogin.prefabName = "PlayerArmatureF.1.2";
+            }else if(PFLogin.shield == "Shield1.5"){
+                if(PFLogin.weapon == "Sword0") PFLogin.prefabName = "PlayerArmatureF.2.0";
+                else if (PFLogin.weapon == "Sword04.1") PFLogin.prefabName = "PlayerArmatureF.2.1";
+                else if (PFLogin.weapon == "Sword03.1") PFLogin.prefabName = "PlayerArmatureF.2.2";
+            }else if(PFLogin.shield == "Shield1"){
+                if(PFLogin.weapon == "Sword0") PFLogin.prefabName = "PlayerArmatureF.3.0";
+                else if (PFLogin.weapon == "Sword04.1") PFLogin.prefabName = "PlayerArmatureF.3.1";
+                else if (PFLogin.weapon == "Sword03.1") PFLogin.prefabName = "PlayerArmatureF.3.2";
+            }else if(PFLogin.shield == "Shield0.6"){
+                if(PFLogin.weapon == "Sword0") PFLogin.prefabName = "PlayerArmatureF.4.0";
+                else if (PFLogin.weapon == "Sword04.1") PFLogin.prefabName = "PlayerArmatureF.4.1";
+                else if (PFLogin.weapon == "Sword03.1") PFLogin.prefabName = "PlayerArmatureF.4.2";
+            }
         }else{
-            gameObject = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(73, 22, 34), Quaternion.identity, 0,null);
-            s += "MaleCharacterPolyart/";
+            if(PFLogin.shield == "Shield0"){
+                if(PFLogin.weapon == "Sword0") PFLogin.prefabName = "PlayerArmature.1.0";
+                else if (PFLogin.weapon == "Sword04.1") PFLogin.prefabName = "PlayerArmature.1.1";
+                else if (PFLogin.weapon == "Sword03.1") PFLogin.prefabName = "PlayerArmature.1.2";
+            }else if(PFLogin.shield == "Shield1.5"){
+                if(PFLogin.weapon == "Sword0") PFLogin.prefabName = "PlayerArmature.2.0";
+                else if (PFLogin.weapon == "Sword04.1") PFLogin.prefabName = "PlayerArmature.2.1";
+                else if (PFLogin.weapon == "Sword03.1") PFLogin.prefabName = "PlayerArmature.2.2";
+            }else if(PFLogin.shield == "Shield1"){
+                if(PFLogin.weapon == "Sword0") PFLogin.prefabName = "PlayerArmature.3.0";
+                else if (PFLogin.weapon == "Sword04.1") PFLogin.prefabName = "PlayerArmature.3.1";
+                else if (PFLogin.weapon == "Sword03.1") PFLogin.prefabName = "PlayerArmature.3.2";
+            }else if(PFLogin.shield == "Shield0.6"){
+                if(PFLogin.weapon == "Sword0") PFLogin.prefabName = "PlayerArmature.4.0";
+                else if (PFLogin.weapon == "Sword04.1") PFLogin.prefabName = "PlayerArmature.4.1";
+                else if (PFLogin.weapon == "Sword03.1") PFLogin.prefabName = "PlayerArmature.4.2";
+            }
         }
-        GameObject body = GameObject.Find(s+PFLogin.body);
-        GameObject cloak = GameObject.Find(s+PFLogin.cloak);
-        GameObject shield = GameObject.Find(s+"root/pelvis/spine_01/spine_02/spine_03/clavicle_l/upperarm_l/lowerarm_l/hand_l/weapon_l/"+PFLogin.shield);
-        GameObject weapon = GameObject.Find(s+"root/pelvis/spine_01/spine_02/spine_03/clavicle_r/upperarm_r/lowerarm_r/hand_r/weapon_r/"+PFLogin.weapon);
-        Debug.Log(s+PFLogin.body);
-        body.SetActive(true);
-        cloak.SetActive(true);
-        shield.SetActive(true);
-        weapon.SetActive(true);
+        if(PFLogin.gender=="Male"){
+            array = new PhotonView[] {playerPrefab1_0,playerPrefab1_1,playerPrefab1_2,playerPrefab2_0,playerPrefab2_1,playerPrefab2_2,playerPrefab3_0,
+            playerPrefab3_1,playerPrefab3_2,playerPrefab4_0,playerPrefab4_1,playerPrefab4_2};
+        }else{
+            array = new PhotonView[] {playerPrefabFemale1_0,playerPrefabFemale1_1,playerPrefabFemale1_2,playerPrefabFemale2_0,playerPrefabFemale2_1,playerPrefabFemale2_2,playerPrefabFemale3_0,
+            playerPrefabFemale3_1,playerPrefabFemale3_2,playerPrefabFemale4_0,playerPrefabFemale4_1,playerPrefabFemale4_2};
+        }
+        Debug.Log(PFLogin.prefabName);
+        Debug.Log(PFLogin.gender);
+        for(int i=0;i<array.Length;i++){
+            temp = array[i];
+            if(temp.name == PFLogin.prefabName) break;
+        }
+        GameObject gameObject;
+        gameObject = PhotonNetwork.Instantiate(temp.name, new Vector3(73, 22, 34), Quaternion.identity, 0,null);
         gameObject.GetComponent<ThirdPersonController>().enabled = true;
         PlayerAttack pa = gameObject.GetComponent<PlayerAttack>();
         pa.healthBar = healthBar;

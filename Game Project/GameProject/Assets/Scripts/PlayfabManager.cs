@@ -138,11 +138,9 @@ public class PlayfabManager : MonoBehaviour
                         { "Exp", "0" },
                         { "Gold", "0" },
                         { "Character", "Female" },
-                        { "Cloak", "Cloak03" },
-                        { "Body", "Body10" },
                         { "Weapon", "Sword0" },
                         { "Shield", "Shield1" },
-                        { "Inventory", "" }
+                        { "Inventory", "$" }
                     }
             };
         PlayFabClientAPI.UpdateUserData (request, OnDataSend, OnError);

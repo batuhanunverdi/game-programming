@@ -54867,8 +54867,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1910453743}
-  - component: {fileID: 1910453744}
   - component: {fileID: 1910453745}
+  - component: {fileID: 1910453744}
   m_Layer: 0
   m_Name: ServerManagement
   m_TagString: Untagged
@@ -54903,9 +54903,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e4355918986efc44a39bf288220c19e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 2240962083393216804, guid: 61a74ba6be197ab4da91105add6867d1,
+  playerPrefab1_0: {fileID: 2240962083393216804, guid: 0872881e1607dd749940310f14c17d90,
     type: 3}
-  playerPrefabFemale: {fileID: 844099067198767237, guid: fe7c1f222ebfedc46b36b257496ea652,
+  playerPrefab1_1: {fileID: 2240962083393216804, guid: e898e0f19ba033f40baec0fbe6cf287d,
+    type: 3}
+  playerPrefab1_2: {fileID: 2240962083393216804, guid: 3cd52a520a7c65b4fa56d9d7ef2edc98,
+    type: 3}
+  playerPrefab2_0: {fileID: 2240962083393216804, guid: 58718108cc298b84697a5900dfdf101c,
+    type: 3}
+  playerPrefab2_1: {fileID: 2240962083393216804, guid: 12b4da6b8fc5f5c489228ef0e7ad82af,
+    type: 3}
+  playerPrefab2_2: {fileID: 2240962083393216804, guid: ad00b779030b46945b2805b5f6d5042d,
+    type: 3}
+  playerPrefab3_0: {fileID: 2240962083393216804, guid: 56865a0cf13c1304ea1e99d04fdbfcc1,
+    type: 3}
+  playerPrefab3_1: {fileID: 2240962083393216804, guid: f05588fd81b0f8b489525ef019e3304b,
+    type: 3}
+  playerPrefab3_2: {fileID: 2240962083393216804, guid: f489d96b97288894396e09b3c4d7deb8,
+    type: 3}
+  playerPrefab4_0: {fileID: 2240962083393216804, guid: 61a74ba6be197ab4da91105add6867d1,
+    type: 3}
+  playerPrefab4_1: {fileID: 2240962083393216804, guid: c986697f82afaa9419cc9afa0a863bfb,
+    type: 3}
+  playerPrefab4_2: {fileID: 2240962083393216804, guid: cbf0e95290de5b74485432dca3dc032a,
+    type: 3}
+  playerPrefabFemale1_0: {fileID: 844099067198767237, guid: fe7c1f222ebfedc46b36b257496ea652,
+    type: 3}
+  playerPrefabFemale1_1: {fileID: 844099067198767237, guid: 4bca8b21080f2ab4891d41581410bd9f,
+    type: 3}
+  playerPrefabFemale1_2: {fileID: 844099067198767237, guid: 4972908ccd3a84d4181f6315307eef72,
+    type: 3}
+  playerPrefabFemale2_0: {fileID: 844099067198767237, guid: e8641dee89f6fd6439af294cbec417cc,
+    type: 3}
+  playerPrefabFemale2_1: {fileID: 844099067198767237, guid: a00cba1683aa77c4fb5fb9d2b9163401,
+    type: 3}
+  playerPrefabFemale2_2: {fileID: 844099067198767237, guid: 7d7e5982be7402747b401e85ff140dae,
+    type: 3}
+  playerPrefabFemale3_0: {fileID: 844099067198767237, guid: e7f24090caa2b2543852ca64f57badd2,
+    type: 3}
+  playerPrefabFemale3_1: {fileID: 844099067198767237, guid: dc696d7c22d46e740863b6cee13ceeed,
+    type: 3}
+  playerPrefabFemale3_2: {fileID: 844099067198767237, guid: 30c0a7797b31d6b40953ffca32182e12,
+    type: 3}
+  playerPrefabFemale4_0: {fileID: 844099067198767237, guid: 01846a81338828b45982a0794f184039,
+    type: 3}
+  playerPrefabFemale4_1: {fileID: 844099067198767237, guid: 153ee2de461c83043879574d14d059e0,
+    type: 3}
+  playerPrefabFemale4_2: {fileID: 844099067198767237, guid: 94146ff551697a849af54dbaa4d8203a,
     type: 3}
 --- !u!114 &1910453745
 MonoBehaviour:
@@ -62168,7 +62212,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.1213872, y: 1}
+    m_SensorSize: {x: 1.9238477, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

@@ -58,14 +58,6 @@ public class SelectName : MonoBehaviour
 
     public void CreateData()
     {
-        string cloak = "Cloak02";
-        string weapon = "Sword00";
-        string shield = "Shield0";
-        if(Temp.character == "Female"){
-            cloak = "Cloak03";
-            weapon = "Sword0";
-            shield = "Shield1";
-        }
         var request =
             new UpdateUserDataRequest {
                 Data =
@@ -74,10 +66,9 @@ public class SelectName : MonoBehaviour
                         { "Exp", "0" },
                         { "Gold", "0"},
                         { "Character", Temp.character },
-                        { "Body", "Body10"},
-                        { "Cloak", cloak},
-                        { "Weapon", weapon},
-                        { "Shield", shield}
+                        { "Weapon", "Sword0"},
+                        { "Shield", "Shield1"},
+                        {"Inventory","$"}
                     }
             };
         PlayFabClientAPI.UpdateUserData (request, OnDataSend, OnError);

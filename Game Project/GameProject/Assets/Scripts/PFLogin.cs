@@ -10,8 +10,6 @@ public static class PFLogin
     public static string gold;
     public static string gender;
     public static string name;
-    public static string cloak;
-    public static string body;
     public static string weapon;
     public static string shield;
     public static string prefabName;
