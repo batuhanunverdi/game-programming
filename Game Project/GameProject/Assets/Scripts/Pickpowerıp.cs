@@ -8,10 +8,12 @@ public class Pickpowerıp : MonoBehaviour
     public CallAfterDelay CallAfterDelay;
     private void OnTriggerEnter(Collider other)
     {
-        CallAfterDelay.Create(0.1f, Kill);
-        powerup.Apply(other.gameObject);
-        CallAfterDelay.Create(7.0f, Respawn);
-
+        if(other.gameObject == GameObject.FindGameObjectWithTag("Player"))
+        {
+            CallAfterDelay.Create(0.1f, Kill);
+            powerup.Apply(other.gameObject);
+            CallAfterDelay.Create(7.0f, Respawn);
+        }
     }
     void Kill()
     {

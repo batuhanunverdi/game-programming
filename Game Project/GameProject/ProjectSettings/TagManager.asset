@@ -12,6 +12,7 @@ TagManager:
   - TeleportDesert
   - TeleportHell
   - TeleportHome
+  - TeleportHomeDesert
   layers:
   - Default
   - TransparentFX
