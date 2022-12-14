@@ -1,25 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class Pickpowerıp : MonoBehaviour
 {
     public Powerup powerup;
-    public CallAfterDelay CallAfterDelay;
+    PhotonView pw;
+    private CallAfterDelay CallAfterDelay;
+
+    void Start()
+    {
+        pw = GetComponent<PhotonView>();
+    }
+    [PunRPC]
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject == GameObject.FindGameObjectWithTag("Player"))
         {
-            CallAfterDelay.Create(0.1f, Kill);
+            
             powerup.Apply(other.gameObject);
-            CallAfterDelay.Create(7.0f, Respawn);
+            
+            DestroyPp();
         }
     }
+    [PunRPC]
+    void DestroyPp()
+    {
+        CallAfterDelay.Create(0.1f, Kill);
+        CallAfterDelay.Create(7f, Respawn);
+    }
+    [PunRPC]
     void Kill()
     {
         gameObject.SetActive(false);
     }
-    
+
+    [PunRPC]
     void Respawn()
     {
 

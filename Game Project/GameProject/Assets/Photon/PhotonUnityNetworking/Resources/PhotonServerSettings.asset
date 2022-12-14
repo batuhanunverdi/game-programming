@@ -52,6 +52,9 @@ MonoBehaviour:
   - TakeDamage
   - Teleport
   - skeletonTakeDamage
+  - DestroyPp
+  - Kill
+  - OnTriggerEnter
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -6,9 +6,15 @@ using UnityEngine;
 public class HealthBuff : Powerup
 { 
     public int amount;
+    private int flag;
     public override void Apply(GameObject target)
     {
-        target.GetComponent<PlayerAttack>().currentHealth = amount;
+        flag= target.GetComponent<PlayerAttack>().currentHealth += amount;
+        if (flag > 100) target.GetComponent<PlayerAttack>().currentHealth = 100;
+        else
+        {
+            target.GetComponent<PlayerAttack>().currentHealth += amount;
+        }
         target.GetComponent<PlayerAttack>().healthBar.setHealth(target.GetComponent<PlayerAttack>().currentHealth);
     }
 }
