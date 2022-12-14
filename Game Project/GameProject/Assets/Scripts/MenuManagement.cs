@@ -25,10 +25,16 @@ public class MenuManagement : MonoBehaviour
                 EscMenu.gameObject.SetActive(false);
                 Skill.gameObject.SetActive(true);
                 Healthbar.gameObject.SetActive(true);
-            }else{
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            else{
+
                 Healthbar.gameObject.SetActive(false);
                 Skill.gameObject.SetActive(false);
                 EscMenu.gameObject.SetActive(true);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
             }
         }
     }

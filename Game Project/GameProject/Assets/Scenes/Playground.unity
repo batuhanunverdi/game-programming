@@ -19841,6 +19841,7 @@ GameObject:
   - component: {fileID: 718293943}
   - component: {fileID: 718293945}
   - component: {fileID: 718293946}
+  - component: {fileID: 718293947}
   m_Layer: 5
   m_Name: EscMenu
   m_TagString: Untagged
@@ -19938,6 +19939,28 @@ MonoBehaviour:
   Skill: {fileID: 1905807949}
   Healthbar: {fileID: 519767245}
   audioMixer: {fileID: 24100000, guid: 8441379bdc7536a4ca30cd90ed950709, type: 2}
+--- !u!114 &718293947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 718293941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 19
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!4 &719879335 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1916428808845025784, guid: f77477e8e884df0449d7eccd49b5c05d,
@@ -25921,6 +25944,7 @@ GameObject:
   - component: {fileID: 903436724}
   - component: {fileID: 903436726}
   - component: {fileID: 903436725}
+  - component: {fileID: 903436727}
   m_Layer: 5
   m_Name: Sure
   m_TagString: Untagged
@@ -25987,6 +26011,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 903436723}
   m_CullTransparentMesh: 1
+--- !u!114 &903436727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903436723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 20
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!4 &906063735 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4860489496569928, guid: fe224bf466c1e5f40883ad83a17a6f7b,
@@ -62691,7 +62737,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7249712, y: 1}
+    m_SensorSize: {x: 1.2682513, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
