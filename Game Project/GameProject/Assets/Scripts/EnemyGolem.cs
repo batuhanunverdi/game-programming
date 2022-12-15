@@ -210,5 +210,9 @@ namespace EnemyPlayer
         {
             return 4;
         }
+        public int giveGold()
+        {
+            return Random.Range(3,9);
+        }
     }
 }

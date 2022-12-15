@@ -147,6 +147,7 @@ public class ServerManagement : MonoBehaviourPunCallbacks
         pa.w = image;
         pa.level = Convert.ToInt32(PFLogin.level);
         pa.exp = Convert.ToInt32(PFLogin.exp);
+        pa.currentGold= Convert.ToInt32(PFLogin.gold);
         //pa.levelText = level;
         pa.expBar = expBar;
         playerCameraRoot = GameObject.FindGameObjectWithTag("Player");

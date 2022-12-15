@@ -67,6 +67,8 @@ public class PlayerAttack : MonoBehaviour
     public int exp;
     public int level;
     public ExpBar expBar;
+    public int gold;
+    public int currentGold;
     //public TextMesh levelText;
 
     private void Awake()
@@ -154,6 +156,8 @@ public class PlayerAttack : MonoBehaviour
                 if (enemy.GetComponent<EnemyGolem>().currentHealth <= 0)
                 {
                     setExperience(enemy.GetComponent<EnemyGolem>().giveExp());
+                    goldGain(enemy.GetComponent<EnemyGolem>().giveGold());
+                    Debug.Log("current gold"+currentGold);
                 }
             }
             if (enemy.GetComponent<EnemySkeleton>())
@@ -250,6 +254,7 @@ public class PlayerAttack : MonoBehaviour
                 if (enemy.GetComponent<EnemyGolem>().currentHealth <= 0)
                 {
                     setExperience(enemy.GetComponent<EnemyGolem>().giveExp());
+                    goldGain(enemy.GetComponent<EnemyGolem>().giveGold());
                 }
             }
             if (enemy.GetComponent<EnemySkeleton>())
@@ -326,6 +331,10 @@ public class PlayerAttack : MonoBehaviour
     {
         level++;
         //levelText.text = "Level:" + level;
+    }
+    public void goldGain(int gold)
+    {
+        currentGold += gold;
     }
 }
 

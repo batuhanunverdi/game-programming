@@ -10,7 +10,7 @@ public class HealthBuff : Powerup
     public override void Apply(GameObject target)
     {
         flag= target.GetComponent<PlayerAttack>().currentHealth += amount;
-        if (flag > 100) target.GetComponent<PlayerAttack>().currentHealth = 100;
+        if (flag > target.GetComponent<PlayerAttack>().maxHealth) target.GetComponent<PlayerAttack>().currentHealth = 100;
         else
         {
             target.GetComponent<PlayerAttack>().currentHealth += amount;

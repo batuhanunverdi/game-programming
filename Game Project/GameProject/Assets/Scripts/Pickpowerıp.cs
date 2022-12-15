@@ -6,6 +6,7 @@ using Photon.Pun;
 public class Pickpowerıp : MonoBehaviour
 {
     public Powerup powerup;
+    public GameObject particle;
     PhotonView pw;
     private CallAfterDelay CallAfterDelay;
 
@@ -18,9 +19,7 @@ public class Pickpowerıp : MonoBehaviour
     {
         if(other.gameObject == GameObject.FindGameObjectWithTag("Player"))
         {
-            
-            powerup.Apply(other.gameObject);
-            
+            powerup.Apply(other.gameObject); 
             DestroyPp();
         }
     }
@@ -28,6 +27,7 @@ public class Pickpowerıp : MonoBehaviour
     void DestroyPp()
     {
         CallAfterDelay.Create(0.1f, Kill);
+        Instantiate(particle, transform.position, transform.rotation);
         CallAfterDelay.Create(7f, Respawn);
     }
     [PunRPC]
