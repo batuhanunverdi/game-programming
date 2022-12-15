@@ -3765,8 +3765,7 @@ MonoBehaviour:
   maxHealth: 100
   Powerup: {fileID: 0}
   currentHealth: 100
-  healthBar: {fileID: 8415946384861367768, guid: dd25cbbbd02c603419f11b8d6b8a59c7,
-    type: 3}
+  healthBar: {fileID: 0}
   GameOverScreen: {fileID: 3284873966323859105, guid: 468fb64a8cb1fd44eb7d41de04cdffee,
     type: 3}
   CallAfterDelay: {fileID: 0}
@@ -3786,6 +3785,9 @@ MonoBehaviour:
   SpecialAttackRange: 2
   specialDamage: 100
   attackRate: 2
+  exp: 0
+  level: 0
+  expBar: {fileID: 0}
 --- !u!54 &7467102028928784785
 Rigidbody:
   m_ObjectHideFlags: 0

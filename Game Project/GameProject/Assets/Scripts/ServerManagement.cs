@@ -6,6 +6,7 @@ using Photon.Pun;
 using UnityEngine.UI;
 using Cinemachine;
 using StarterAssets;
+using System;
 
 public class ServerManagement : MonoBehaviourPunCallbacks
 {
@@ -39,6 +40,8 @@ public class ServerManagement : MonoBehaviourPunCallbacks
     private GameObject playerCameraRoot;
     private Image image;
     private LoadScreen loadScreen;
+    private ExpBar expBar;
+    private TextMesh level;
     PhotonView[] array;
     PhotonView temp;
     // Start is called before the first frame update
@@ -59,7 +62,8 @@ public class ServerManagement : MonoBehaviourPunCallbacks
         followCamera = PhotonView.Find(5).GetComponent<CinemachineVirtualCamera>();
         image = PhotonView.Find(1).GetComponent<Image>();
         loadScreen = PhotonView.Find(17).GetComponent<LoadScreen>();
-
+        expBar = PhotonView.Find(21).GetComponent<ExpBar>();
+        //level = PhotonView.Find(22).GetComponent<TextMesh>();
     }
 
 
@@ -141,6 +145,10 @@ public class ServerManagement : MonoBehaviourPunCallbacks
         pa.GameOverScreen = gameOverScreen;
         gameObject.transform.position = new Vector3(73, 22, 34);
         pa.w = image;
+        pa.level = Convert.ToInt32(PFLogin.level);
+        pa.exp = Convert.ToInt32(PFLogin.exp);
+        //pa.levelText = level;
+        pa.expBar = expBar;
         playerCameraRoot = GameObject.FindGameObjectWithTag("Player");
         followCamera.Follow = playerCameraRoot.transform;
         CallAfterDelay.Create(1.0f, loadScreen.Setup2);

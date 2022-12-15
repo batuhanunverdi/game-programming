@@ -46,13 +46,11 @@ namespace EnemyPlayer
 
         public CallAfterDelay CallAfterDelay;
 
-        int currentHealth;
+        public int currentHealth;
 
         public int layerholder;
 
         public int startedLayerHolder;
-
-
 
         //public static List<Player> playerList = new List<Player>();
 
@@ -206,6 +204,11 @@ namespace EnemyPlayer
             }
 
 
+        }
+
+        public int giveExp()
+        {
+            return 4;
         }
     }
 }

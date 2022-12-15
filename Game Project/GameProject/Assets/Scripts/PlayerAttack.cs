@@ -6,8 +6,9 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Photon.Pun;
 using EnemyPlayer;
+using System;
 
-    public class PlayerAttack : MonoBehaviour
+public class PlayerAttack : MonoBehaviour
 {
    
     // Start is called before the first frame update
@@ -63,6 +64,11 @@ using EnemyPlayer;
 
     PhotonView pw;
 
+    public int exp;
+    public int level;
+    public ExpBar expBar;
+    //public TextMesh levelText;
+
     private void Awake()
     {
         pw = GetComponent<PhotonView>();
@@ -74,6 +80,7 @@ using EnemyPlayer;
         healthBar.setMaxHealth (maxHealth);
         time_remaining = maxTime;
         input = GetComponent<PlayerInput>();
+        //levelText.text = "Level:" + PFLogin.level;
     }
 
     public void playerTakeDamage(int damage)
@@ -126,17 +133,11 @@ using EnemyPlayer;
     [PunRPC]
     IEnumerator Teleport(Vector3 teleportTarget)
     {
-        
         yield return new WaitForSeconds(0.01f);
         GetComponent<ThirdPersonController>().enabled = false;
         transform.position = teleportTarget;
         yield return new WaitForSeconds(0.01f);
         GetComponent<ThirdPersonController>().enabled = true;
-        
-        
-        
-
-
     }
 
     [PunRPC]
@@ -150,13 +151,15 @@ using EnemyPlayer;
             if (enemy.GetComponent<EnemyGolem>())
             {
                 enemy.GetComponent<EnemyGolem>().TakeDamage(attackDamage);
+                if (enemy.GetComponent<EnemyGolem>().currentHealth <= 0)
+                {
+                    setExperience(enemy.GetComponent<EnemyGolem>().giveExp());
+                }
             }
             if (enemy.GetComponent<EnemySkeleton>())
             {
                 enemy.GetComponent<EnemySkeleton>().skeletonTakeDamage(attackDamage);
             }
-
-            
         }
     }
     [PunRPC]
@@ -244,6 +247,10 @@ using EnemyPlayer;
             if (enemy.GetComponent<EnemyGolem>())
             {
                 enemy.GetComponent<EnemyGolem>().TakeDamage(specialDamage);
+                if (enemy.GetComponent<EnemyGolem>().currentHealth <= 0)
+                {
+                    setExperience(enemy.GetComponent<EnemyGolem>().giveExp());
+                }
             }
             if (enemy.GetComponent<EnemySkeleton>())
             {
@@ -276,6 +283,49 @@ using EnemyPlayer;
     {
         input.actions = null;
         input.enabled = false;
+    }
+
+    public int ExpNeedToLvlUp(int level)
+    {
+        if(level == 1)
+        {
+            return 0;
+        }
+        return (level * level + level) * 5;
+    }
+
+    public void setExperience(float experience)
+    {
+       exp += Convert.ToInt32(experience);
+
+        float expNeeded = ExpNeedToLvlUp(level);
+        float previousExp = ExpNeedToLvlUp(level - 1);
+
+        if (exp >= expNeeded)
+        {
+            LevelUp();
+            expNeeded = ExpNeedToLvlUp(level);
+            previousExp = ExpNeedToLvlUp(level - 1);
+        }
+        expBar.setExpBar((exp - previousExp) / (expNeeded - previousExp));
+        expBar.setMaxExp(ExpNeedToLvlUp(level)-exp);
+
+        if (expBar.slider.maxValue >= expNeeded + previousExp)
+        {
+            expBar.slider.value = 0;
+        }
+        else
+        {
+            expBar.slider.value = exp;
+        }
+        Debug.Log("Experience: " + exp);
+        Debug.Log("Level:" + level);
+        Debug.Log("Experience Need:" + expNeeded);
+    }
+    public void LevelUp()
+    {
+        level++;
+        //levelText.text = "Level:" + level;
     }
 }
 
