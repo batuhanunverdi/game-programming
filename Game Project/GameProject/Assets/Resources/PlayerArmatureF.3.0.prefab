@@ -4812,6 +4812,11 @@ MonoBehaviour:
   SpecialAttackRange: 2
   specialDamage: 100
   attackRate: 2
+  exp: 0
+  level: 0
+  expBar: {fileID: 0}
+  gold: 0
+  currentGold: 0
 --- !u!54 &2194791127403569628
 Rigidbody:
   m_ObjectHideFlags: 0
