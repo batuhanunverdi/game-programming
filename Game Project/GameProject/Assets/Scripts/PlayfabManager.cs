@@ -140,7 +140,8 @@ public class PlayfabManager : MonoBehaviour
                         { "Character", "Female" },
                         { "Weapon", "Sword0" },
                         { "Shield", "Shield1" },
-                        { "Inventory", "$" }
+                        {"ShieldInventory","Shield1,"},
+                        {"WeaponInventory","Sword0,"}
                     }
             };
         PlayFabClientAPI.UpdateUserData (request, OnDataSend, OnError);
@@ -160,6 +161,7 @@ public class PlayfabManager : MonoBehaviour
                     .Log("The player's display name is now: " +
                     result.DisplayName);
                 flag = true;
+                PFLogin.name = result.DisplayName;
             },
             error =>
             {

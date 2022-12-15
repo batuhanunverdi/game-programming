@@ -6,9 +6,11 @@ using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public class SettingsMenu : MonoBehaviour
 {
+    bool flag = false;
     public CanvasRenderer Skill;
     public Slider Healthbar;
     // Start is called before the first frame update
@@ -17,8 +19,11 @@ public class SettingsMenu : MonoBehaviour
         audioMixer.SetFloat("volume",Mathf.Log10(volume) * 20);
     }
     public void QuitGame(){
-        
-        Application.Quit();
+        SendData();
+        if(flag == true) Application.Quit();
+        else {
+            Debug.Log("Something went wrong, please try again.");
+        }
     }
     public void CloseButton(){
         Skill.gameObject.SetActive(true);
@@ -39,11 +44,15 @@ public class SettingsMenu : MonoBehaviour
     }
     void OnDataSend(UpdateUserDataResult result)
     {
+        flag = true;
         Debug.Log("Succesful!");
     }
 
     void OnError(PlayFabError error)
     {
         Debug.Log(error.GenerateErrorReport());
+    }
+    public void EditCharacter(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

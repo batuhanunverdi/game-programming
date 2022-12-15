@@ -29,7 +29,8 @@ public class InstantiateWithDB : MonoBehaviour
             result.Data.ContainsKey("Weapon")&& 
             result.Data.ContainsKey("Shield")&& 
             result.Data.ContainsKey("Character") && 
-            result.Data.ContainsKey("Inventory")
+            result.Data.ContainsKey("ShieldInventory") &&
+            result.Data.ContainsKey("WeaponInventory")
         )
         {
             
@@ -38,7 +39,8 @@ public class InstantiateWithDB : MonoBehaviour
             PFLogin.gold = result.Data["Gold"].Value;
             PFLogin.weapon = result.Data["Weapon"].Value;
             PFLogin.shield = result.Data["Shield"].Value;
-            PFLogin.inventory = result.Data["Inventory"].Value;
+            PFLogin.shieldInventory = result.Data["ShieldInventory"].Value;
+            PFLogin.weaponInventory = result.Data["WeaponInventory"].Value;
             if(result.Data["Character"].Value == "Female" ){
                 PFLogin.gender = "Female";
             }else{

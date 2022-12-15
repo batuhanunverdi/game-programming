@@ -68,7 +68,8 @@ public class SelectName : MonoBehaviour
                         { "Character", Temp.character },
                         { "Weapon", "Sword0"},
                         { "Shield", "Shield1"},
-                        {"Inventory","$"}
+                        {"ShieldInventory","Shield1,"},
+                        {"WeaponInventory","Sword0,"}
                     }
             };
         PlayFabClientAPI.UpdateUserData (request, OnDataSend, OnError);
