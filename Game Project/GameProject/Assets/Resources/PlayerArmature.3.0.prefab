@@ -3765,7 +3765,8 @@ MonoBehaviour:
   maxHealth: 100
   Powerup: {fileID: 0}
   currentHealth: 100
-  healthBar: {fileID: 0}
+  healthBar: {fileID: 6187493956134639275, guid: dd25cbbbd02c603419f11b8d6b8a59c7,
+    type: 3}
   GameOverScreen: {fileID: 3284873966323859105, guid: 468fb64a8cb1fd44eb7d41de04cdffee,
     type: 3}
   CallAfterDelay: {fileID: 0}

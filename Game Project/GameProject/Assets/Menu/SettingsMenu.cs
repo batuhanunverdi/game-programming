@@ -7,7 +7,6 @@ using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
-
 public class SettingsMenu : MonoBehaviour
 {
     bool flag = false;

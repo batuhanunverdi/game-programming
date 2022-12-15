@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class SceneManagement : MonoBehaviour
 {
@@ -13,7 +15,9 @@ public class SceneManagement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LeaveLobby();
+        PhotonNetwork.Disconnect();
     }
 
     // Update is called once per frame
