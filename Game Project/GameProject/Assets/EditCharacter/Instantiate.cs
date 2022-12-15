@@ -18,6 +18,8 @@ public class Instantiate : MonoBehaviour
         }else{
             Statics.PrefabName += "/MaleCharacterPolyart";
         }
+        Statics.shield = PFLogin.shield;
+        Statics.weapon = PFLogin.weapon;
         Statics.PrefabName += "/root/pelvis/spine_01/spine_02/spine_03/";
         GameObject.Find(Statics.PrefabName +"clavicle_l/upperarm_l/lowerarm_l/hand_l/weapon_l/"+PFLogin.shield).SetActive(true);
         GameObject.Find(Statics.PrefabName +"clavicle_r/upperarm_r/lowerarm_r/hand_r/weapon_r/"+PFLogin.weapon).SetActive(true);

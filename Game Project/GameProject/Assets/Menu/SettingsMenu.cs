@@ -26,7 +26,6 @@ public class SettingsMenu : MonoBehaviour
     }
     public void CloseButton(){
         Skill.gameObject.SetActive(true);
-        Healthbar.gameObject.SetActive(true);
     }
     public void SendData()
     {
@@ -52,6 +51,11 @@ public class SettingsMenu : MonoBehaviour
         Debug.Log(error.GenerateErrorReport());
     }
     public void EditCharacter(){
+        PFLogin.shopOrEdit="Edit";
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+    public void Shop(){
+        PFLogin.shopOrEdit="Shop";
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

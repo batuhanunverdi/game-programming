@@ -10,7 +10,6 @@ using UnityEngine.UI;
 
 public class PlayfabManager : MonoBehaviour
 {
-    bool flag = false;
     string MyPlayfabID;
     [Header("UI")]
     public TMP_Text messageText;
@@ -160,13 +159,11 @@ public class PlayfabManager : MonoBehaviour
                 Debug
                     .Log("The player's display name is now: " +
                     result.DisplayName);
-                flag = true;
                 PFLogin.name = result.DisplayName;
             },
             error =>
             {
                 Debug.LogError(error.GenerateErrorReport());
-                flag = false;
             });
     }
 

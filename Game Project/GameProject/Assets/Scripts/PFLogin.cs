@@ -15,4 +15,5 @@ public static class PFLogin
     public static string prefabName;
     public static string shieldInventory;
     public static string weaponInventory;
+    public static string shopOrEdit;
 }

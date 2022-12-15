@@ -8,4 +8,5 @@ public class Statics
     public static string shield;
     public static string PrefabName;
     public static string name;
+    public static string Temp;
 }

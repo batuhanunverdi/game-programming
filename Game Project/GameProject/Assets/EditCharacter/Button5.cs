@@ -24,9 +24,7 @@ public class Button5 : MonoBehaviour
     }
 
     public void OnClick(){
-        if(Statics.shield is not null){
-            GameObject.Find(Statics.PrefabName +"clavicle_l/upperarm_l/lowerarm_l/hand_l/weapon_l/"+Statics.shield).SetActive(false);
-        }
+        GameObject.Find(Statics.PrefabName +"clavicle_l/upperarm_l/lowerarm_l/hand_l/weapon_l/"+Statics.shield).SetActive(false);       
         GameObject.Find(Statics.PrefabName +"clavicle_l/upperarm_l/lowerarm_l/hand_l/weapon_l/Shield0.6").SetActive(true);
         Statics.shield = "Shield0.6";
     }
