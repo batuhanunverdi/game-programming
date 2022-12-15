@@ -169,7 +169,7 @@ public class ServerManagement : MonoBehaviourPunCallbacks
 
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
-        Debug.Log("Could not join any room");
+        PhotonNetwork.JoinOrCreateRoom("AkdenizCSRoom", new RoomOptions { MaxPlayers = 4, IsOpen = true, IsVisible = true }, TypedLobby.Default);
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
