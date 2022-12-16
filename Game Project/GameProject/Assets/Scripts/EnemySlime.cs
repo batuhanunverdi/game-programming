@@ -30,6 +30,8 @@ public class EnemySlime : MonoBehaviour
 
     public int startedLayerHolder;
 
+    public GameObject particle;
+
     PhotonView pw;
 
     // Start is called before the first frame update
@@ -59,12 +61,18 @@ public class EnemySlime : MonoBehaviour
     void Destroy()
     {
         CallAfterDelay.Create(2.0f, Kill);
+        CallAfterDelay.Create(1.9f, Bum);
+        CallAfterDelay.Create(2.0f, slimeExplosion);
         CallAfterDelay.Create(7.0f, Respawn);
+    }
+
+    void Bum()
+    {
+        Instantiate(particle, transform.position, transform.rotation);
     }
 
     void Kill()
     {
-        slimeExplosion();
         gameObject.SetActive(false);
     }
 
@@ -156,13 +164,11 @@ public class EnemySlime : MonoBehaviour
                     Vector3.Distance(p.transform.position, transform.position);
                 if (distance <= sightRange)
                 {
-                    
                     agent.SetDestination(p.transform.position);
                 }
                 if (distance <= agent.stoppingDistance)
                 {
-                    slimeExplosion();
-                    slimeTakeDamage(slimeAttackDamage);
+                    slimeTakeDamage (slimeAttackDamage);
                 }
             }
         }
