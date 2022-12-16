@@ -112,11 +112,11 @@ public class PlayerAttack : MonoBehaviour
             }
             if (other.gameObject == GameObject.FindGameObjectWithTag("TeleportHome"))
             { 
-                StartCoroutine("Teleport", new Vector3(73.1f, 22.03f, 34.92f));
+                StartCoroutine("Teleport", new Vector3(73.1f, 24.03f, 34.92f));
             }
             if (other.gameObject == GameObject.FindGameObjectWithTag("TeleportHomeDesert"))
             {
-                StartCoroutine("Teleport", new Vector3(73.1f, 22.03f, 34.92f));
+                StartCoroutine("Teleport", new Vector3(73.1f, 24.03f, 34.92f));
             }
             /*StartCoroutine("Teleport",new Vector3(6.72f, 2.17f, -2294.65f));
             
