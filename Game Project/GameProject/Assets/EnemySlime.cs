@@ -4,29 +4,27 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemySkeleton : MonoBehaviour
+public class EnemySlime : MonoBehaviour
 {
     NavMeshAgent agent;
 
     public LayerMask character;
 
+    public Transform target;
+
     public float sightRange = 10f;
 
-    public Transform skeletonAttackPoint;
+    public Transform slimeAttackPoint;
 
-    public float skeletonAttackRange = 1f;
+    public float slimeAttackRange = 1f;
 
-    public int skeletonAttackDamage = 20;
+    public int slimeAttackDamage = 100000;
 
-    public float skeletonAttackSpeed = 1f;
-
-    private float skeletonAttackCooldown = 0f;
-
-    public int maxSkeletonHealth = 150;
+    public int maxSlimeHealth = 1;
 
     public CallAfterDelay CallAfterDelay;
 
-    int currentHealth;
+    public int currentHealth;
 
     public int layerholder;
 
@@ -37,32 +35,24 @@ public class EnemySkeleton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-        currentHealth = maxSkeletonHealth;
+        agent = GetComponent<NavMeshAgent>();
+        currentHealth = maxSlimeHealth;
         pw = GetComponent<PhotonView>();
         layerholder = LayerMask.NameToLayer("nonTargetable");
         startedLayerHolder = LayerMask.NameToLayer("Enemy");
     }
 
     [PunRPC]
-    public void skeletonTakeDamage(int damage)
+    public void slimeTakeDamage(int damage)
     {
         currentHealth = currentHealth - damage;
-        if (currentHealth > 0)
-        {
-            transform.GetComponent<Animator>().SetTrigger("SkeletonHit");
-        }
+        Die();
 
-        if (currentHealth <= 0)
-        {
-            Die();
+        gameObject.layer = layerholder;
+        Debug.Log("Current layer: " + gameObject.layer);
 
-            gameObject.layer = layerholder;
-            Debug.Log("Current layer: " + gameObject.layer);
-
-            //transform.parent.gameObject.GetComponent<EnemySpawner>().dead();
-            GetComponent<PhotonView>().RPC("Destroy", RpcTarget.All, null);
-        }
+        //transform.parent.gameObject.GetComponent<EnemySpawner>().dead();
+        GetComponent<PhotonView>().RPC("Destroy", RpcTarget.All, null);
     }
 
     [PunRPC]
@@ -74,13 +64,15 @@ public class EnemySkeleton : MonoBehaviour
 
     void Kill()
     {
+        slimeExplosion();
         gameObject.SetActive(false);
     }
 
+    [PunRPC]
     void Respawn()
     {
         gameObject.transform.position = transform.parent.position;
-        currentHealth = maxSkeletonHealth;
+        currentHealth = maxSlimeHealth;
         gameObject.layer = startedLayerHolder;
         gameObject.GetComponent<CapsuleCollider>().enabled = true;
         gameObject.SetActive(true);
@@ -89,30 +81,47 @@ public class EnemySkeleton : MonoBehaviour
     void Die()
     {
         transform.GetComponent<CapsuleCollider>().enabled = false;
-        transform.GetComponent<Animator>().SetBool("SkeletonDeath", true);
+        transform.GetComponent<Animator>().SetBool("SlimeDeath", true);
         Debug.Log("Enemy died!");
     }
 
-    void sAttack()
-    {
-        if (skeletonAttackCooldown <= 0f)
+    /*void slimeAttack()
         {
-            transform.GetComponent<Animator>().SetTrigger("SkeletonAttack");
-            Collider[] players =
-                Physics
-                    .OverlapSphere(skeletonAttackPoint.position,
-                    skeletonAttackRange,
-                    character);
-            foreach (Collider character in players)
-            {
-                if (character.GetComponent<PlayerAttack>())
+            
+                transform.GetComponent<Animator>().SetTrigger("GolemAttack");
+                Collider[] players =
+                    Physics
+                        .OverlapSphere(slimeAttackPoint.position,
+                        slimeAttackRange,
+                        character);
+                foreach (Collider character in players)
                 {
-                    character
-                        .GetComponent<PlayerAttack>()
-                        .playerTakeDamage(skeletonAttackDamage);
+                    if (character.GetComponent<PlayerAttack>())
+                    {
+                        character
+                            .GetComponent<PlayerAttack>()
+                            .playerTakeDamage(slimeAttackDamage);
+                    }
                 }
+                
+            
+        }*/
+    void slimeExplosion()
+    {
+        transform.GetComponent<Animator>().SetTrigger("SlimeExplosion");
+        Collider[] players =
+            Physics
+                .OverlapSphere(slimeAttackPoint.position,
+                slimeAttackRange,
+                character);
+        foreach (Collider character in players)
+        {
+            if (character.GetComponent<PlayerAttack>())
+            {
+                character
+                    .GetComponent<PlayerAttack>()
+                    .playerTakeDamage(slimeAttackDamage);
             }
-            skeletonAttackCooldown = 1f / skeletonAttackSpeed;
         }
     }
 
@@ -130,15 +139,14 @@ public class EnemySkeleton : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, sightRange);
-        if (skeletonAttackPoint == null) return;
+        if (slimeAttackPoint == null) return;
         Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(skeletonAttackPoint.position, skeletonAttackRange);
+        Gizmos.DrawSphere(slimeAttackPoint.position, slimeAttackRange);
     }
 
     // Update is called once per frame
     void Update()
     {
-        skeletonAttackCooldown -= Time.deltaTime;
         if (HellPlayer.playerListHell.Count != 0)
         {
             foreach (GameObject p in HellPlayer.playerListHell)
@@ -148,12 +156,13 @@ public class EnemySkeleton : MonoBehaviour
                     Vector3.Distance(p.transform.position, transform.position);
                 if (distance <= sightRange)
                 {
+                    
                     agent.SetDestination(p.transform.position);
                 }
                 if (distance <= agent.stoppingDistance)
                 {
-                    
-                    sAttack();
+                    slimeExplosion();
+                    slimeTakeDamage(slimeAttackDamage);
                 }
             }
         }

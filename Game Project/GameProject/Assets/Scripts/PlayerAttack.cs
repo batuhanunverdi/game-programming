@@ -1,18 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using EnemyPlayer;
+using Photon.Pun;
 using StarterAssets;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using Photon.Pun;
-using EnemyPlayer;
-using System;
 
 public class PlayerAttack : MonoBehaviour
 {
-   
     // Start is called before the first frame update
     public int maxHealth = 100;
+
     public Powerup Powerup;
 
     public int currentHealth;
@@ -39,7 +39,6 @@ public class PlayerAttack : MonoBehaviour
     public bool dead_check = false;
 
     //Enemy attack başlangıç
-
     public Transform attackPoint;
 
     public float attackRange = 0.5f;
@@ -65,17 +64,21 @@ public class PlayerAttack : MonoBehaviour
     PhotonView pw;
 
     public int exp;
-    public int level;
-    public ExpBar expBar;
-    public int gold;
-    public int currentGold;
-    //public TextMesh levelText;
 
+    public int level;
+
+    public ExpBar expBar;
+
+    public int gold;
+
+    public int currentGold;
+
+    //public TextMesh levelText;
     private void Awake()
     {
         pw = GetComponent<PhotonView>();
-
     }
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -88,33 +91,44 @@ public class PlayerAttack : MonoBehaviour
     public void playerTakeDamage(int damage)
     {
         currentHealth = currentHealth - damage;
-        
+
         healthBar.setHealth (currentHealth);
         transform.GetComponent<Animator>().SetTrigger("GetHit");
-        
     }
+
     // Update is called once per frame
     private void OnTriggerStay(Collider other)
     {
-        if(pw.IsMine)
+        if (pw.IsMine)
         {
-
-            if (other.gameObject == GameObject.FindGameObjectWithTag("TeleportDesert"))
+            if (
+                other.gameObject ==
+                GameObject.FindGameObjectWithTag("TeleportDesert")
+            )
             {
-                StartCoroutine("Teleport", new Vector3(6.72f, 2.17f, -2294.65f));
-                DesertPlayer.playerListDesert.Add(this.gameObject);  
+                StartCoroutine("Teleport",
+                new Vector3(6.72f, 2.17f, -2294.65f));
+                DesertPlayer.playerListDesert.Add(this.gameObject);
             }
-            
-            if (other.gameObject == GameObject.FindGameObjectWithTag("TeleportHell"))
+
+            if (
+                other.gameObject ==
+                GameObject.FindGameObjectWithTag("TeleportHell")
+            )
             {
-                StartCoroutine("Teleport", new Vector3(-3157.17f, 24.92f, 24.6f));
+                StartCoroutine("Teleport",
+                new Vector3(-3157.17f, 24.92f, 24.6f));
+                HellPlayer.playerListHell.Add(this.gameObject);
                 //DesertPlayer.playerListDesert.Add(this.gameObject);
             }
             if (other.gameObject == GameObject.FindGameObjectWithTag("TeleportHome"))
             { 
                 StartCoroutine("Teleport", new Vector3(73.1f, 24.03f, 34.92f));
             }
-            if (other.gameObject == GameObject.FindGameObjectWithTag("TeleportHomeDesert"))
+            if (
+                other.gameObject ==
+                GameObject.FindGameObjectWithTag("TeleportHomeDesert")
+            )
             {
                 StartCoroutine("Teleport", new Vector3(73.1f, 24.03f, 34.92f));
             }
@@ -123,6 +137,7 @@ public class PlayerAttack : MonoBehaviour
             DesertPlayer.playerListDesert.Add(this.gameObject);*/
         }
     }
+
     void Update()
     {
         if (pw.IsMine)
@@ -132,6 +147,7 @@ public class PlayerAttack : MonoBehaviour
             pw.RPC("Special", RpcTarget.All, null);
         }
     }
+
     [PunRPC]
     IEnumerator Teleport(Vector3 teleportTarget)
     {
@@ -157,15 +173,26 @@ public class PlayerAttack : MonoBehaviour
                 {
                     setExperience(enemy.GetComponent<EnemyGolem>().giveExp());
                     goldGain(enemy.GetComponent<EnemyGolem>().giveGold());
-                    Debug.Log("current gold"+currentGold);
+                    Debug.Log("current gold" + currentGold);
                 }
             }
             if (enemy.GetComponent<EnemySkeleton>())
             {
-                enemy.GetComponent<EnemySkeleton>().skeletonTakeDamage(attackDamage);
+                enemy
+                    .GetComponent<EnemySkeleton>()
+                    .skeletonTakeDamage(attackDamage);
+            }
+            if (enemy.GetComponent<EnemySlime>())
+            {
+                enemy.GetComponent<EnemySlime>().slimeTakeDamage(attackDamage);
+            }
+            if (enemy.GetComponent<EnemyBat>())
+            {
+                enemy.GetComponent<EnemyBat>().batTakeDamage(attackDamage);
             }
         }
     }
+
     [PunRPC]
     public void checkAttack()
     {
@@ -181,6 +208,7 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
+
     [PunRPC]
     public void Die()
     {
@@ -207,10 +235,11 @@ public class PlayerAttack : MonoBehaviour
                 GetComponent<ThirdPersonController>().enabled = true;
                 transform.GetComponent<Animator>().SetTrigger("Revive");
                 currentHealth = maxHealth;
-                healthBar.setHealth(currentHealth);
+                healthBar.setHealth (currentHealth);
             }
         }
     }
+
     [PunRPC]
     public void Special()
     {
@@ -239,6 +268,7 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
+
     [PunRPC]
     public void SpecialAttack()
     {
@@ -259,9 +289,18 @@ public class PlayerAttack : MonoBehaviour
             }
             if (enemy.GetComponent<EnemySkeleton>())
             {
-                enemy.GetComponent<EnemySkeleton>().skeletonTakeDamage(specialDamage);
+                enemy
+                    .GetComponent<EnemySkeleton>()
+                    .skeletonTakeDamage(specialDamage);
             }
-            
+            if (enemy.GetComponent<EnemySlime>())
+            {
+                enemy.GetComponent<EnemySlime>().slimeTakeDamage(specialDamage);
+            }
+            if (enemy.GetComponent<EnemyBat>())
+            {
+                enemy.GetComponent<EnemyBat>().batTakeDamage(specialDamage);
+            }
         }
     }
 
@@ -292,7 +331,7 @@ public class PlayerAttack : MonoBehaviour
 
     public int ExpNeedToLvlUp(int level)
     {
-        if(level == 1)
+        if (level == 1)
         {
             return 0;
         }
@@ -301,7 +340,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void setExperience(float experience)
     {
-       exp += Convert.ToInt32(experience);
+        exp += Convert.ToInt32(experience);
 
         float expNeeded = ExpNeedToLvlUp(level);
         float previousExp = ExpNeedToLvlUp(level - 1);
@@ -313,7 +352,7 @@ public class PlayerAttack : MonoBehaviour
             previousExp = ExpNeedToLvlUp(level - 1);
         }
         expBar.setExpBar((exp - previousExp) / (expNeeded - previousExp));
-        expBar.setMaxExp(ExpNeedToLvlUp(level)-exp);
+        expBar.setMaxExp(ExpNeedToLvlUp(level) - exp);
 
         if (expBar.slider.maxValue >= expNeeded + previousExp)
         {
@@ -327,15 +366,15 @@ public class PlayerAttack : MonoBehaviour
         Debug.Log("Level:" + level);
         Debug.Log("Experience Need:" + expNeeded);
     }
+
     public void LevelUp()
     {
         level++;
         //levelText.text = "Level:" + level;
     }
+
     public void goldGain(int gold)
     {
         currentGold += gold;
     }
 }
-
-

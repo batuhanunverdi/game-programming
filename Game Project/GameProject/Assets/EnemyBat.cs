@@ -4,7 +4,7 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemySkeleton : MonoBehaviour
+public class EnemyBat : MonoBehaviour
 {
     NavMeshAgent agent;
 
@@ -12,17 +12,17 @@ public class EnemySkeleton : MonoBehaviour
 
     public float sightRange = 10f;
 
-    public Transform skeletonAttackPoint;
+    public Transform batAttackPoint;
 
-    public float skeletonAttackRange = 1f;
+    public float batAttackRange = 2f;
 
-    public int skeletonAttackDamage = 20;
+    public int batAttackDamage = 5;
 
-    public float skeletonAttackSpeed = 1f;
+    public float batAttackSpeed = 1f;
 
-    private float skeletonAttackCooldown = 0f;
+    private float batAttackCooldown = 0f;
 
-    public int maxSkeletonHealth = 150;
+    public int maxBatHealth = 100;
 
     public CallAfterDelay CallAfterDelay;
 
@@ -38,19 +38,19 @@ public class EnemySkeleton : MonoBehaviour
     void Start()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-        currentHealth = maxSkeletonHealth;
+        currentHealth = maxBatHealth;
         pw = GetComponent<PhotonView>();
         layerholder = LayerMask.NameToLayer("nonTargetable");
         startedLayerHolder = LayerMask.NameToLayer("Enemy");
     }
 
     [PunRPC]
-    public void skeletonTakeDamage(int damage)
+    public void batTakeDamage(int damage)
     {
         currentHealth = currentHealth - damage;
         if (currentHealth > 0)
         {
-            transform.GetComponent<Animator>().SetTrigger("SkeletonHit");
+            transform.GetComponent<Animator>().SetTrigger("BatHit");
         }
 
         if (currentHealth <= 0)
@@ -80,7 +80,7 @@ public class EnemySkeleton : MonoBehaviour
     void Respawn()
     {
         gameObject.transform.position = transform.parent.position;
-        currentHealth = maxSkeletonHealth;
+        currentHealth = maxBatHealth;
         gameObject.layer = startedLayerHolder;
         gameObject.GetComponent<CapsuleCollider>().enabled = true;
         gameObject.SetActive(true);
@@ -89,19 +89,19 @@ public class EnemySkeleton : MonoBehaviour
     void Die()
     {
         transform.GetComponent<CapsuleCollider>().enabled = false;
-        transform.GetComponent<Animator>().SetBool("SkeletonDeath", true);
+        transform.GetComponent<Animator>().SetBool("BatDeath", true);
         Debug.Log("Enemy died!");
     }
 
-    void sAttack()
+    void batAttack()
     {
-        if (skeletonAttackCooldown <= 0f)
+        if (batAttackCooldown <= 0f)
         {
-            transform.GetComponent<Animator>().SetTrigger("SkeletonAttack");
+            transform.GetComponent<Animator>().SetTrigger("BatAttack");
             Collider[] players =
                 Physics
-                    .OverlapSphere(skeletonAttackPoint.position,
-                    skeletonAttackRange,
+                    .OverlapSphere(batAttackPoint.position,
+                    batAttackRange,
                     character);
             foreach (Collider character in players)
             {
@@ -109,10 +109,10 @@ public class EnemySkeleton : MonoBehaviour
                 {
                     character
                         .GetComponent<PlayerAttack>()
-                        .playerTakeDamage(skeletonAttackDamage);
+                        .playerTakeDamage(batAttackDamage);
                 }
             }
-            skeletonAttackCooldown = 1f / skeletonAttackSpeed;
+            batAttackCooldown = 1f / batAttackSpeed;
         }
     }
 
@@ -130,15 +130,15 @@ public class EnemySkeleton : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, sightRange);
-        if (skeletonAttackPoint == null) return;
+        if (batAttackPoint == null) return;
         Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(skeletonAttackPoint.position, skeletonAttackRange);
+        Gizmos.DrawSphere(batAttackPoint.position, batAttackRange);
     }
 
     // Update is called once per frame
     void Update()
     {
-        skeletonAttackCooldown -= Time.deltaTime;
+        batAttackCooldown -= Time.deltaTime;
         if (HellPlayer.playerListHell.Count != 0)
         {
             foreach (GameObject p in HellPlayer.playerListHell)
@@ -153,7 +153,7 @@ public class EnemySkeleton : MonoBehaviour
                 if (distance <= agent.stoppingDistance)
                 {
                     
-                    sAttack();
+                    batAttack();
                 }
             }
         }

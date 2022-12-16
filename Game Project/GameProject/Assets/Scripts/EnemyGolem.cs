@@ -158,7 +158,7 @@ namespace EnemyPlayer
                     .Slerp(transform.rotation, faceRotate, Time.deltaTime * 5);
         }
 
-        void OnDrawGizmosSelected(Transform target)
+        void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, sightRange);
@@ -188,10 +188,11 @@ namespace EnemyPlayer
             {
                 foreach (GameObject p in DesertPlayer.playerListDesert)
                 {
+                    faceTarget(p.transform);
                     float distance = Vector3.Distance(p.transform.position, transform.position);
                     if (distance <= sightRange)
                     {
-                        faceTarget(p.transform);
+                        
                         agent.SetDestination(p.transform.position);
                     }
                     if (distance <= agent.stoppingDistance)
