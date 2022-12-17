@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using EnemyPlayer;
 using Photon.Pun;
 using StarterAssets;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using TMPro;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -75,10 +75,12 @@ public class PlayerAttack : MonoBehaviour
     public int currentGold;
 
     //public bool tab = true;
-
     public TMP_Text levelText;
 
     public TMP_Text goldText;
+
+    public int respawnCheck = 0;
+
     private void Awake()
     {
         pw = GetComponent<PhotonView>();
@@ -92,7 +94,7 @@ public class PlayerAttack : MonoBehaviour
         time_remaining = maxTime;
         input = GetComponent<PlayerInput>();
         levelText.text = "Level:" + PFLogin.level;
-        goldText.text = "Gold: "+PFLogin.gold;
+        goldText.text = "Gold: " + PFLogin.gold;
         exp = Convert.ToInt32(PFLogin.exp);
     }
 
@@ -114,6 +116,7 @@ public class PlayerAttack : MonoBehaviour
                 GameObject.FindGameObjectWithTag("TeleportDesert")
             )
             {
+                respawnCheck = 1;
                 StartCoroutine("Teleport",
                 new Vector3(6.72f, 2.17f, -2294.65f));
                 DesertPlayer.playerListDesert.Add(this.gameObject);
@@ -124,20 +127,27 @@ public class PlayerAttack : MonoBehaviour
                 GameObject.FindGameObjectWithTag("TeleportHell")
             )
             {
+                respawnCheck = 2;
                 StartCoroutine("Teleport",
                 new Vector3(-3157.17f, 24.92f, 24.6f));
                 HellPlayer.playerListHell.Add(this.gameObject);
                 //DesertPlayer.playerListDesert.Add(this.gameObject);
             }
-            if (other.gameObject == GameObject.FindGameObjectWithTag("TeleportHome"))
-            { 
+            if (
+                other.gameObject ==
+                GameObject.FindGameObjectWithTag("TeleportHome")
+            )
+            {
+                respawnCheck = 0;
                 StartCoroutine("Teleport", new Vector3(73.1f, 24.03f, 34.92f));
             }
             if (
+                
                 other.gameObject ==
                 GameObject.FindGameObjectWithTag("TeleportHomeDesert")
             )
             {
+                respawnCheck = 0;
                 StartCoroutine("Teleport", new Vector3(73.1f, 24.03f, 34.92f));
             }
             /*StartCoroutine("Teleport",new Vector3(6.72f, 2.17f, -2294.65f));
@@ -153,9 +163,7 @@ public class PlayerAttack : MonoBehaviour
             pw.RPC("checkAttack", RpcTarget.All, null);
             pw.RPC("Die", RpcTarget.All, null);
             pw.RPC("Special", RpcTarget.All, null);
-            
         }
-       
     }
 
     [PunRPC]
@@ -182,7 +190,6 @@ public class PlayerAttack : MonoBehaviour
             tab = true;
         }
     }*/
-
     [PunRPC]
     public void Attack()
     {
@@ -252,15 +259,46 @@ public class PlayerAttack : MonoBehaviour
 
             if (Input.GetKey(KeyCode.R) && dead_check)
             {
-                a = 0;
-                timer = false;
-                dead_check = false;
-                GameOverScreen.Setup2();
-                transform.GetComponent<Animator>().SetBool("Die", false);
-                GetComponent<ThirdPersonController>().enabled = true;
-                transform.GetComponent<Animator>().SetTrigger("Revive");
-                currentHealth = maxHealth;
-                healthBar.setHealth (currentHealth);
+                if (respawnCheck == 0)
+                {
+                    a = 0;
+                    timer = false;
+                    dead_check = false;
+                    GameOverScreen.Setup2();
+                    transform.GetComponent<Animator>().SetBool("Die", false);
+                    GetComponent<ThirdPersonController>().enabled = true;
+                    transform.GetComponent<Animator>().SetTrigger("Revive");
+                    currentHealth = maxHealth;
+                    healthBar.setHealth (currentHealth);
+                }
+                else if (respawnCheck == 1)
+                {
+                    StartCoroutine("Teleport",
+                    new Vector3(6.72f, 2.17f, -2294.65f));
+                    a = 0;
+                    timer = false;
+                    dead_check = false;
+                    GameOverScreen.Setup2();
+                    transform.GetComponent<Animator>().SetBool("Die", false);
+                    GetComponent<ThirdPersonController>().enabled = true;
+                    transform.GetComponent<Animator>().SetTrigger("Revive");
+                    currentHealth = maxHealth;
+                    healthBar.setHealth (currentHealth);
+                }
+                else
+                {
+                    StartCoroutine("Teleport",
+                new Vector3(-3157.17f, 24.92f, 24.6f));
+                    a = 0;
+                    timer = false;
+                    dead_check = false;
+                    GameOverScreen.Setup2();
+                    transform.GetComponent<Animator>().SetBool("Die", false);
+                    GetComponent<ThirdPersonController>().enabled = true;
+                    transform.GetComponent<Animator>().SetTrigger("Revive");
+                    currentHealth = maxHealth;
+                    healthBar.setHealth (currentHealth);
+                }
             }
         }
     }
@@ -377,7 +415,7 @@ public class PlayerAttack : MonoBehaviour
             expNeeded = ExpNeedToLvlUp(level);
             previousExp = ExpNeedToLvlUp(level - 1);
         }
-        expBar.setExpBar((exp - previousExp) / (expNeeded - previousExp)*100);
+        expBar.setExpBar((exp - previousExp) / (expNeeded - previousExp) * 100);
 
         if (expBar.slider.value >= expBar.slider.maxValue)
         {
@@ -385,7 +423,8 @@ public class PlayerAttack : MonoBehaviour
         }
         else
         {
-            expBar.slider.value = (exp - previousExp) / (expNeeded - previousExp) * 100;
+            expBar.slider.value =
+                (exp - previousExp) / (expNeeded - previousExp) * 100;
         }
         Debug.Log("Experience: " + exp);
         Debug.Log("Level:" + level);
@@ -397,7 +436,7 @@ public class PlayerAttack : MonoBehaviour
         level++;
         maxHealth += 1;
         currentHealth = maxHealth;
-        healthBar.setMaxHealth(maxHealth);
+        healthBar.setMaxHealth (maxHealth);
         levelText.text = "Level:" + level;
         PFLogin.level = level.ToString();
     }
@@ -405,7 +444,7 @@ public class PlayerAttack : MonoBehaviour
     public void goldGain(int gold)
     {
         currentGold += gold;
-        goldText.text ="Gold:"+ currentGold.ToString();
+        goldText.text = "Gold:" + currentGold.ToString();
         PFLogin.gold = currentGold.ToString();
     }
 }
