@@ -73,6 +73,8 @@ public class PlayerAttack : MonoBehaviour
 
     public int currentGold;
 
+    //public bool tab = true;
+
     //public TextMesh levelText;
     private void Awake()
     {
@@ -81,6 +83,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Start()
     {
+        
         currentHealth = maxHealth;
         healthBar.setMaxHealth (maxHealth);
         time_remaining = maxTime;
@@ -145,7 +148,9 @@ public class PlayerAttack : MonoBehaviour
             pw.RPC("checkAttack", RpcTarget.All, null);
             pw.RPC("Die", RpcTarget.All, null);
             pw.RPC("Special", RpcTarget.All, null);
+            
         }
+       
     }
 
     [PunRPC]
@@ -157,6 +162,21 @@ public class PlayerAttack : MonoBehaviour
         yield return new WaitForSeconds(0.01f);
         GetComponent<ThirdPersonController>().enabled = true;
     }
+
+    /*public void Board(){
+        
+        if(Input.GetKey(KeyCode.Tab) && tab){
+            
+            Debug.Log(PFLogin.name);
+            GameObject.Find("Canvas").GetComponent<Score>().SendLeaderboard(3);
+            LeaderB.Setup();
+            tab = false;
+        }
+        if(Input.GetKey(KeyCode.Tab) && !tab){
+            //LeaderB.Setup2();
+            tab = true;
+        }
+    }*/
 
     [PunRPC]
     public void Attack()

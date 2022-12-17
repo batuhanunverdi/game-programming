@@ -3769,6 +3769,7 @@ MonoBehaviour:
     type: 3}
   GameOverScreen: {fileID: 3284873966323859105, guid: 468fb64a8cb1fd44eb7d41de04cdffee,
     type: 3}
+  LeaderB: {fileID: 0}
   CallAfterDelay: {fileID: 0}
   timer: 0
   special: 1
@@ -3791,6 +3792,7 @@ MonoBehaviour:
   expBar: {fileID: 0}
   gold: 0
   currentGold: 0
+  tab: 1
 --- !u!54 &7467102028928784785
 Rigidbody:
   m_ObjectHideFlags: 0

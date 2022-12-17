@@ -18,11 +18,52 @@ public class PlayfabManager : MonoBehaviour
 
     public TMP_InputField passwordInput;
 
+    //public GameObject rowPrefab;
+
+    //public Transform rowsParent;
+
     // Start is called before the first frame update
     void Start()
     {
     }
+    //-----------------
+    /*public void SendLeaderboard(int level){
+        var request = new UpdatePlayerStatisticsRequest{
+            Statistics = new List<StatisticUpdate> {
+                new StatisticUpdate {
+                    StatisticName = "LevelBoard",
+                    Value = level
+                }
+            }
+        };
+        PlayFabClientAPI.UpdatePlayerStatistics(request,OnLeaderboardUpdate,OnError);
+    }
 
+    void OnLeaderboardUpdate(UpdatePlayerStatisticsResult result){
+        Debug.Log("Succesful leaderboard");
+    }
+    public void GetLeaderboard() {
+        var request = new GetLeaderboardRequest {
+            StatisticName = "LevelBoard",
+            StartPosition = 0,
+            MaxResultsCount = 10
+        };
+        PlayFabClientAPI.GetLeaderboard(request,OnLeaderboardGet,OnError);
+    }
+    void OnLeaderboardGet(GetLeaderboardResult result){
+        foreach(var item in result.Leaderboard){
+            GameObject newGo = Instantiate(rowPrefab, rowsParent);
+            Text [] texts = newGo.GetComponentsInChildren<Text>();
+            texts[0].text = item.Position.ToString();
+            texts[1].text = item.PlayfabID;
+            texts[2].text = item.StatValue.ToString();
+
+            Debug.Log(item.Position + " " + item.PlayFabId + " " + item.StatValue);
+        }
+    }
+*/
+
+//--------------------
     public void RegisterButton()
     {
         messageText.text = "";

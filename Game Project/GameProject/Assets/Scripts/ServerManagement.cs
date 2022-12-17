@@ -53,12 +53,15 @@ public class ServerManagement : MonoBehaviourPunCallbacks
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
+        
+        //Debug.Log(GetComponent<PhotonView>().viewId);
     }
 
     void Update()
     {
         healthBar = PhotonView.Find(3).GetComponent<HealthBar>();
         gameOverScreen = PhotonView.Find(2).GetComponent<GameOverScreen>();
+        //LeaderB = PhotonView.Find(19).GetComponent<LeaderB>();
         followCamera = PhotonView.Find(5).GetComponent<CinemachineVirtualCamera>();
         image = PhotonView.Find(1).GetComponent<Image>();
         loadScreen = PhotonView.Find(17).GetComponent<LoadScreen>();
@@ -143,6 +146,7 @@ public class ServerManagement : MonoBehaviourPunCallbacks
         PlayerAttack pa = gameObject.GetComponent<PlayerAttack>();
         pa.healthBar = healthBar;
         pa.GameOverScreen = gameOverScreen;
+        //pa.LeaderB = LeaderB;
         gameObject.transform.position = new Vector3(73, 22, 34);
         pa.w = image;
         pa.level = Convert.ToInt32(PFLogin.level);
