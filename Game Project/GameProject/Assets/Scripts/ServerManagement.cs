@@ -7,6 +7,8 @@ using UnityEngine.UI;
 using Cinemachine;
 using StarterAssets;
 using System;
+using TMPro;
+
 
 public class ServerManagement : MonoBehaviourPunCallbacks
 {
@@ -41,7 +43,6 @@ public class ServerManagement : MonoBehaviourPunCallbacks
     private Image image;
     private LoadScreen loadScreen;
     private ExpBar expBar;
-    private TextMesh level;
     PhotonView[] array;
     PhotonView temp;
     // Start is called before the first frame update
@@ -66,7 +67,6 @@ public class ServerManagement : MonoBehaviourPunCallbacks
         image = PhotonView.Find(1).GetComponent<Image>();
         loadScreen = PhotonView.Find(17).GetComponent<LoadScreen>();
         expBar = PhotonView.Find(21).GetComponent<ExpBar>();
-        //level = PhotonView.Find(22).GetComponent<TextMesh>();
     }
 
 
@@ -152,7 +152,10 @@ public class ServerManagement : MonoBehaviourPunCallbacks
         pa.level = Convert.ToInt32(PFLogin.level);
         pa.exp = Convert.ToInt32(PFLogin.exp);
         pa.currentGold= Convert.ToInt32(PFLogin.gold);
-        //pa.levelText = level;
+        TMP_Text level = PhotonView.Find(22).GetComponent<TMP_Text>();
+        TMP_Text gold = PhotonView.Find(25).GetComponent<TMP_Text>();
+        pa.levelText = level;
+        pa.goldText = gold;
         pa.expBar = expBar;
         playerCameraRoot = GameObject.FindGameObjectWithTag("Player");
         followCamera.Follow = playerCameraRoot.transform;

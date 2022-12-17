@@ -7,6 +7,7 @@ using StarterAssets;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -75,7 +76,9 @@ public class PlayerAttack : MonoBehaviour
 
     //public bool tab = true;
 
-    //public TextMesh levelText;
+    public TMP_Text levelText;
+
+    public TMP_Text goldText;
     private void Awake()
     {
         pw = GetComponent<PhotonView>();
@@ -83,12 +86,14 @@ public class PlayerAttack : MonoBehaviour
 
     void Start()
     {
-        
+        maxHealth += level;
         currentHealth = maxHealth;
         healthBar.setMaxHealth (maxHealth);
         time_remaining = maxTime;
         input = GetComponent<PlayerInput>();
-        //levelText.text = "Level:" + PFLogin.level;
+        levelText.text = "Level:" + PFLogin.level;
+        goldText.text = "Gold: "+PFLogin.gold;
+        exp = Convert.ToInt32(PFLogin.exp);
     }
 
     public void playerTakeDamage(int damage)
@@ -361,6 +366,7 @@ public class PlayerAttack : MonoBehaviour
     public void setExperience(float experience)
     {
         exp += Convert.ToInt32(experience);
+        PFLogin.exp = exp.ToString();
 
         float expNeeded = ExpNeedToLvlUp(level);
         float previousExp = ExpNeedToLvlUp(level - 1);
@@ -371,16 +377,15 @@ public class PlayerAttack : MonoBehaviour
             expNeeded = ExpNeedToLvlUp(level);
             previousExp = ExpNeedToLvlUp(level - 1);
         }
-        expBar.setExpBar((exp - previousExp) / (expNeeded - previousExp));
-        expBar.setMaxExp(ExpNeedToLvlUp(level) - exp);
+        expBar.setExpBar((exp - previousExp) / (expNeeded - previousExp)*100);
 
-        if (expBar.slider.maxValue >= expNeeded + previousExp)
+        if (expBar.slider.value >= expBar.slider.maxValue)
         {
             expBar.slider.value = 0;
         }
         else
         {
-            expBar.slider.value = exp;
+            expBar.slider.value = (exp - previousExp) / (expNeeded - previousExp) * 100;
         }
         Debug.Log("Experience: " + exp);
         Debug.Log("Level:" + level);
@@ -390,11 +395,17 @@ public class PlayerAttack : MonoBehaviour
     public void LevelUp()
     {
         level++;
-        //levelText.text = "Level:" + level;
+        maxHealth += 1;
+        currentHealth = maxHealth;
+        healthBar.setMaxHealth(maxHealth);
+        levelText.text = "Level:" + level;
+        PFLogin.level = level.ToString();
     }
 
     public void goldGain(int gold)
     {
         currentGold += gold;
+        goldText.text ="Gold:"+ currentGold.ToString();
+        PFLogin.gold = currentGold.ToString();
     }
 }

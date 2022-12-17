@@ -4817,6 +4817,8 @@ MonoBehaviour:
   expBar: {fileID: 0}
   gold: 0
   currentGold: 0
+  levelText: {fileID: 0}
+  goldText: {fileID: 0}
 --- !u!54 &2194791127403569628
 Rigidbody:
   m_ObjectHideFlags: 0

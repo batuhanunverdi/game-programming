@@ -8,15 +8,52 @@ using PlayFab.ClientModels;
 public class InstantiateWithDB : MonoBehaviour
 {
     // Start is called before the first frame update
+    float time;
+    float timeDelay;
+
     void Start()
     {
+        time = 0f;
+        timeDelay = 10f;
         GetData();
+    }
+
+    private void Update()
+    {
+        time += 1f * Time.deltaTime;
+        if (time >= timeDelay)
+        {
+            time = 0f;
+            UpdateData();
+            Debug.Log("Girdi");
+        }
     }
     public void GetData()
     {
     
         PlayFabClientAPI
             .GetUserData(new GetUserDataRequest(), OnDataReceived, OnError);
+    }
+
+    void UpdateData()
+    {
+        var request =
+            new UpdateUserDataRequest
+            {
+                Data =
+                    new Dictionary<string, string>
+                    {
+                        {"Gold",PFLogin.gold},
+                        {"Exp",PFLogin.exp},
+                        {"Level",PFLogin.level}
+                    }
+            };
+        PlayFabClientAPI.UpdateUserData(request, OnDataSend, OnError);
+    }
+
+    void OnDataSend(UpdateUserDataResult updateUserDataRequest)
+    {
+        Debug.Log("User updated");
     }
 
     void OnDataReceived(GetUserDataResult result)
