@@ -59,8 +59,6 @@ public class EnemyBat : MonoBehaviour
 
             gameObject.layer = layerholder;
             Debug.Log("Current layer: " + gameObject.layer);
-
-            //transform.parent.gameObject.GetComponent<EnemySpawner>().dead();
             GetComponent<PhotonView>().RPC("Destroy", RpcTarget.All, null);
         }
     }
@@ -152,7 +150,6 @@ public class EnemyBat : MonoBehaviour
                 }
                 if (distance <= agent.stoppingDistance)
                 {
-                    
                     batAttack();
                 }
             }

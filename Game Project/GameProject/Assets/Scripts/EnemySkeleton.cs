@@ -56,11 +56,8 @@ public class EnemySkeleton : MonoBehaviour
         if (currentHealth <= 0)
         {
             Die();
-
             gameObject.layer = layerholder;
             Debug.Log("Current layer: " + gameObject.layer);
-
-            //transform.parent.gameObject.GetComponent<EnemySpawner>().dead();
             GetComponent<PhotonView>().RPC("Destroy", RpcTarget.All, null);
         }
     }
@@ -152,7 +149,6 @@ public class EnemySkeleton : MonoBehaviour
                 }
                 if (distance <= agent.stoppingDistance)
                 {
-                    
                     sAttack();
                 }
             }

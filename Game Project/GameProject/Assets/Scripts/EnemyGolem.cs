@@ -1,16 +1,13 @@
-using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace EnemyPlayer
 {
-
-
     public class EnemyGolem : MonoBehaviour
     {
-
         NavMeshAgent agent;
 
         //public Transform player;
@@ -52,31 +49,17 @@ namespace EnemyPlayer
 
         public int startedLayerHolder;
 
-        //public static List<Player> playerList = new List<Player>();
-
-        //public static List<Player> GetPlayerList(){
-        //     return playerList;
-        //}
-        //public static List <GameObject> playerList;
-
         PhotonView pw;
+
         // Start is called before the first frame update
         void Start()
         {
-            //target = EnemyPlayer.instance.player.transform;
             agent = GetComponent<NavMeshAgent>();
             currentHealth = maxGolemHealth;
             pw = GetComponent<PhotonView>();
             layerholder = LayerMask.NameToLayer("nonTargetable");
             startedLayerHolder = LayerMask.NameToLayer("Enemy");
-            //playerList = new List<GameObject>();
-
         }
-        /*private void Awake() {
-            PlayerAttack[] components = GameObject.FindObjectsOfType<PlayerAttack>();
-            foreach(PlayerAttack comp in components)
-             playerList.Add(comp.gameObject);
-        }*/
 
         [PunRPC]
         public void TakeDamage(int damage)
@@ -86,12 +69,9 @@ namespace EnemyPlayer
 
             if (currentHealth <= 0)
             {
-
                 Die();
-
                 gameObject.layer = layerholder;
                 Debug.Log("Current layer: " + gameObject.layer);
-                //transform.parent.gameObject.GetComponent<EnemySpawner>().dead();
                 GetComponent<PhotonView>().RPC("Destroy", RpcTarget.All, null);
             }
         }
@@ -107,6 +87,7 @@ namespace EnemyPlayer
         {
             gameObject.SetActive(false);
         }
+
         [PunRPC]
         void Respawn()
         {
@@ -147,12 +128,13 @@ namespace EnemyPlayer
             }
         }
 
-
         void faceTarget(Transform target)
         {
-            Vector3 direction = (target.position - transform.position).normalized;
+            Vector3 direction =
+                (target.position - transform.position).normalized;
             Quaternion faceRotate =
-                Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+                Quaternion
+                    .LookRotation(new Vector3(direction.x, 0, direction.z));
             transform.rotation =
                 Quaternion
                     .Slerp(transform.rotation, faceRotate, Time.deltaTime * 5);
@@ -167,53 +149,37 @@ namespace EnemyPlayer
             Gizmos.DrawSphere(golemAttackPoint.position, golemAttackRange);
         }
 
-
         void Update()
         {
-            /*if(DesertPlayer.playerListDesert.Count != playerList.Count)
-            {
-                if (DesertPlayer.playerListDesert.Count != 0)
-                {
-                    foreach (GameObject ps in DesertPlayer.playerListDesert)
-                    {
-                        playerList.Add(ps);
-                        Debug.Log("xddddd");
-                    }
-                }
-            }*/
-
-
             golemAttackCooldown -= Time.deltaTime;
             if (DesertPlayer.playerListDesert.Count != 0)
             {
                 foreach (GameObject p in DesertPlayer.playerListDesert)
                 {
                     faceTarget(p.transform);
-                    float distance = Vector3.Distance(p.transform.position, transform.position);
+                    float distance =
+                        Vector3
+                            .Distance(p.transform.position, transform.position);
                     if (distance <= sightRange)
                     {
-                        
                         agent.SetDestination(p.transform.position);
                     }
                     if (distance <= agent.stoppingDistance)
                     {
-                        
                         gAttack();
-
                     }
                 }
             }
-
-
         }
 
         public int giveExp()
         {
             return 4;
         }
+
         public int giveGold()
         {
-            return Random.Range(3,9);
+            return Random.Range(3, 9);
         }
     }
 }

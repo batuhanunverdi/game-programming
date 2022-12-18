@@ -32,6 +32,8 @@ public class EnemySlime : MonoBehaviour
 
     public GameObject particle;
 
+    bool boom = true;
+
     PhotonView pw;
 
     // Start is called before the first frame update
@@ -52,27 +54,32 @@ public class EnemySlime : MonoBehaviour
 
         gameObject.layer = layerholder;
         Debug.Log("Current layer: " + gameObject.layer);
-
-        //transform.parent.gameObject.GetComponent<EnemySpawner>().dead();
         GetComponent<PhotonView>().RPC("Destroy", RpcTarget.All, null);
     }
 
     [PunRPC]
     void Destroy()
     {
+        
         CallAfterDelay.Create(2.0f, Kill);
-        CallAfterDelay.Create(1.9f, Bum);
+        if(boom == true){
+            Bum();
+            boom = false;
+        }
         CallAfterDelay.Create(2.0f, slimeExplosion);
         CallAfterDelay.Create(7.0f, Respawn);
     }
 
     void Bum()
     {
-        Instantiate(particle, transform.position, transform.rotation);
+        GameObject boomeffect = Instantiate(particle, transform.position, transform.rotation);
+        Destroy(boomeffect,2.0f);
     }
 
     void Kill()
-    {
+    {   
+        
+        
         gameObject.SetActive(false);
     }
 
@@ -84,6 +91,7 @@ public class EnemySlime : MonoBehaviour
         gameObject.layer = startedLayerHolder;
         gameObject.GetComponent<CapsuleCollider>().enabled = true;
         gameObject.SetActive(true);
+        boom = true;
     }
 
     void Die()
@@ -93,29 +101,9 @@ public class EnemySlime : MonoBehaviour
         Debug.Log("Enemy died!");
     }
 
-    /*void slimeAttack()
-        {
-            
-                transform.GetComponent<Animator>().SetTrigger("GolemAttack");
-                Collider[] players =
-                    Physics
-                        .OverlapSphere(slimeAttackPoint.position,
-                        slimeAttackRange,
-                        character);
-                foreach (Collider character in players)
-                {
-                    if (character.GetComponent<PlayerAttack>())
-                    {
-                        character
-                            .GetComponent<PlayerAttack>()
-                            .playerTakeDamage(slimeAttackDamage);
-                    }
-                }
-                
-            
-        }*/
     void slimeExplosion()
     {
+        
         transform.GetComponent<Animator>().SetTrigger("SlimeExplosion");
         Collider[] players =
             Physics

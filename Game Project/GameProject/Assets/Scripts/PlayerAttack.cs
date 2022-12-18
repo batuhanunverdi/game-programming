@@ -142,7 +142,6 @@ public class PlayerAttack : MonoBehaviour
                 StartCoroutine("Teleport", new Vector3(73.1f, 24.03f, 34.92f));
             }
             if (
-                
                 other.gameObject ==
                 GameObject.FindGameObjectWithTag("TeleportHomeDesert")
             )
@@ -150,9 +149,6 @@ public class PlayerAttack : MonoBehaviour
                 respawnCheck = 0;
                 StartCoroutine("Teleport", new Vector3(73.1f, 24.03f, 34.92f));
             }
-            /*StartCoroutine("Teleport",new Vector3(6.72f, 2.17f, -2294.65f));
-            
-            DesertPlayer.playerListDesert.Add(this.gameObject);*/
         }
     }
 
@@ -176,20 +172,6 @@ public class PlayerAttack : MonoBehaviour
         GetComponent<ThirdPersonController>().enabled = true;
     }
 
-    /*public void Board(){
-        
-        if(Input.GetKey(KeyCode.Tab) && tab){
-            
-            Debug.Log(PFLogin.name);
-            GameObject.Find("Canvas").GetComponent<Score>().SendLeaderboard(3);
-            LeaderB.Setup();
-            tab = false;
-        }
-        if(Input.GetKey(KeyCode.Tab) && !tab){
-            //LeaderB.Setup2();
-            tab = true;
-        }
-    }*/
     [PunRPC]
     public void Attack()
     {
@@ -288,7 +270,7 @@ public class PlayerAttack : MonoBehaviour
                 else
                 {
                     StartCoroutine("Teleport",
-                new Vector3(-3157.17f, 24.92f, 24.6f));
+                    new Vector3(-3157.17f, 24.92f, 24.6f));
                     a = 0;
                     timer = false;
                     dead_check = false;
