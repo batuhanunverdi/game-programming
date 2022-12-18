@@ -26,7 +26,7 @@ public class EnemySkeleton : MonoBehaviour
 
     public CallAfterDelay CallAfterDelay;
 
-    int currentHealth;
+    public int currentHealth;
 
     public int layerholder;
 
@@ -153,5 +153,14 @@ public class EnemySkeleton : MonoBehaviour
                 }
             }
         }
+    }
+    public int giveExp()
+    {
+        return 9;
+    }
+
+    public int giveGold()
+    {
+        return Random.Range(6, 14);
     }
 }

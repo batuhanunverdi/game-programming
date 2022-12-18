@@ -26,7 +26,7 @@ public class EnemyBat : MonoBehaviour
 
     public CallAfterDelay CallAfterDelay;
 
-    int currentHealth;
+    public int currentHealth;
 
     public int layerholder;
 
@@ -154,5 +154,14 @@ public class EnemyBat : MonoBehaviour
                 }
             }
         }
+    }
+    public int giveExp()
+    {
+        return 3;
+    }
+
+    public int giveGold()
+    {
+        return Random.Range(1, 6);
     }
 }

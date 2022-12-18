@@ -195,6 +195,11 @@ public class PlayerAttack : MonoBehaviour
                 enemy
                     .GetComponent<EnemySkeleton>()
                     .skeletonTakeDamage(attackDamage);
+                if (enemy.GetComponent<EnemySkeleton>().currentHealth <= 0)
+                {
+                    setExperience(enemy.GetComponent<EnemySkeleton>().giveExp());
+                    goldGain(enemy.GetComponent<EnemySkeleton>().giveGold());
+                }
             }
             if (enemy.GetComponent<EnemySlime>())
             {
@@ -203,6 +208,11 @@ public class PlayerAttack : MonoBehaviour
             if (enemy.GetComponent<EnemyBat>())
             {
                 enemy.GetComponent<EnemyBat>().batTakeDamage(attackDamage);
+                if (enemy.GetComponent<EnemyBat>().currentHealth <= 0)
+                {
+                    setExperience(enemy.GetComponent<EnemyBat>().giveExp());
+                    goldGain(enemy.GetComponent<EnemyBat>().giveGold());
+                }
             }
         }
     }
