@@ -64,7 +64,7 @@ public class SceneManagement : MonoBehaviour
         Debug.Log("i work");
         string s ="";
         int a = int.Parse(PFLogin.gold)-int.Parse(Statics.Temp);
-        if(Statics.weapon is not null){
+        if(Statics.buyShield==false){
             s += PFLogin.weaponInventory + Statics.weapon+",";
             var request =
             new UpdateUserDataRequest {
@@ -75,8 +75,7 @@ public class SceneManagement : MonoBehaviour
                     }
             };
              PlayFabClientAPI.UpdateUserData (request, OnDataSend, OnError);
-        }
-        if(Statics.shield is not null){
+        }else{
             s += PFLogin.shieldInventory + Statics.shield+",";
             var request =
             new UpdateUserDataRequest {

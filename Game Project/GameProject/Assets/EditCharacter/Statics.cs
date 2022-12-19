@@ -9,4 +9,5 @@ public class Statics
     public static string PrefabName;
     public static string name;
     public static string Temp;
+    public static bool buyShield;
 }

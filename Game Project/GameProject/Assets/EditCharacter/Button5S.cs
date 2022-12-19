@@ -29,6 +29,7 @@ public class Button5S : MonoBehaviour
     }
 
     public void OnClick(){
+        Statics.buyShield = true;
         Statics.Temp = "30";
         GameObject.Find(Statics.PrefabName +"clavicle_r/upperarm_r/lowerarm_r/hand_r/weapon_r/"+Statics.weapon).SetActive(false);
         GameObject.Find(Statics.PrefabName +"clavicle_l/upperarm_l/lowerarm_l/hand_l/weapon_l/"+Statics.shield).SetActive(false);

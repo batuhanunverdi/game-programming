@@ -28,7 +28,7 @@ public class Instantiate : MonoBehaviour
         GameObject.Find(Statics.PrefabName +"clavicle_l/upperarm_l/lowerarm_l/hand_l/weapon_l/"+PFLogin.shield).SetActive(true);
         GameObject.Find(Statics.PrefabName +"clavicle_r/upperarm_r/lowerarm_r/hand_r/weapon_r/"+PFLogin.weapon).SetActive(true);
 
-        gold.text = PFLogin.gold;
+        gold.text = PFLogin.gold+"G";
     }
 
     // Update is called once per frame
